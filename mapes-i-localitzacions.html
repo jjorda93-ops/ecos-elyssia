@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapes i Localitzacions · Els Ecos d’Elyssia</title>
+  <style>
+    :root {
+      --bg-body: #1b130d;
+      --bg-panel: #24160f;
+      --bg-card: #f5ecdb;
+      --bg-card-soft: #efe1c7;
+      --text-main: #1a130c;
+      --text-muted: #5b4a36;
+      --accent: #8b2e2e;
+      --accent-soft: #c25d3f;
+      --border-dark: #3a2616;
+      --border-light: #d2b894;
+      --max-width: 1120px;
+      --radius-lg: 1.1rem;
+      --shadow-soft: 0 14px 35px rgba(0,0,0,0.55);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #3a2315 0, #1b130d 40%, #120c08 100%);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    img { max-width: 100%; display: block; }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER (mateix que index, però amb el link actiu als mapes) */
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(18, 12, 8, 0.94);
+      border-bottom: 2px solid #4b2f1b;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.7);
+    }
+
+    .header-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0.6rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: #fef3c7;
+    }
+
+    .brand-seal {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: 2px solid #facc6b;
+      background:
+        radial-gradient(circle at 30% 20%, #facc6b 0, #b91c1c 45%, #111827 100%);
+      box-shadow: 0 0 18px rgba(250, 204, 107, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-seal::after {
+      content: "";
+      position: absolute;
+      inset: 22%;
+      border-radius: inherit;
+      border: 2px solid rgba(15, 23, 42, 0.9);
+    }
+
+    .brand-title {
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1.05rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .brand-sub {
+      font-size: 0.75rem;
+      color: #e5e7eb;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+    }
+
+    .nav a {
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      color: #f3e9d5;
+      background: rgba(15, 23, 42, 0.2);
+      transition: all 0.16s ease-out;
+      white-space: nowrap;
+    }
+
+    .nav a:hover {
+      background: rgba(148, 163, 184, 0.25);
+      border-color: rgba(249, 250, 251, 0.8);
+    }
+
+    .nav a.nav-primary {
+      background: linear-gradient(to right, #b91c1c, #c25d3f);
+      border-color: #facc6b;
+      color: #fef9c3;
+      font-weight: 600;
+      box-shadow: 0 8px 22px rgba(185, 28, 28, 0.75);
+    }
+
+    @media (max-width: 720px) {
+      .header-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+      .nav { justify-content: center; }
+    }
+
+    /* LAYOUT GENERAL */
+
+    .main { flex: 1; }
+
+    .section {
+      padding: 3rem 1.25rem;
+    }
+
+    .section-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1.45rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin: 0 0 0.75rem;
+      color: #3b2716;
+    }
+
+    .section-lead {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 44rem;
+      line-height: 1.6;
+    }
+
+    .eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    /* GRID UTIL */
+
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 900px) {
+      .grid-2 {
+        grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.1fr);
+        align-items: center;
+      }
+      .grid-2.flip {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.25fr);
+      }
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-soft);
+      padding: 1.4rem 1.3rem 1.3rem;
+    }
+
+    .card-soft {
+      background: var(--bg-card-soft);
+    }
+
+    .card-title {
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1.1rem;
+      margin: 0 0 0.4rem;
+      color: #3b2716;
+    }
+
+    .card-body {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .map-frame {
+      border-radius: 0.9rem;
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-soft);
+      background: #000;
+    }
+
+    .map-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: #fdf6e7;
+      color: var(--text-muted);
+      margin-right: 0.3rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .tag strong {
+      font-weight: 600;
+      color: #8b2e2e;
+    }
+
+    .map-meta {
+      margin-top: 0.65rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .map-meta strong { color: #8b2e2e; }
+
+    .chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.6rem;
+    }
+
+    .chip {
+      font-size: 0.78rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: #f9f1e0;
+      border: 1px solid #e2cfa9;
+      color: var(--text-muted);
+    }
+
+    /* GALERIA ESCENARIS */
+
+    .scenes-grid {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 1.6rem;
+    }
+
+    @media (min-width: 900px) {
+      .scenes-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .scene-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .scene-image {
+      border-bottom: 1px solid var(--border-light);
+      max-height: 220px;
+      overflow: hidden;
+    }
+
+    .scene-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .scene-body {
+      padding: 1rem 0.95rem 1.1rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .scene-title {
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1rem;
+      color: #3b2716;
+      margin: 0 0 0.35rem;
+    }
+
+    .scene-tagline {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #a16235;
+      margin-bottom: 0.45rem;
+    }
+
+    /* FOOTER */
+
+    .site-footer {
+      border-top: 2px solid #4b2f1b;
+      background: #130c07;
+      padding: 1.2rem 1.25rem 1.5rem;
+      color: #cbd5f5;
+      font-size: 0.8rem;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 720px) {
+      .footer-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="index.html" class="brand">
+          <div class="brand-seal" aria-hidden="true"></div>
+          <div>
+            <div class="brand-title">Els Ecos d’Elyssia</div>
+            <div class="brand-sub">Campanya de Dungeons & Dragons</div>
+          </div>
+        </a>
+        <nav class="nav">
+          <a href="mapes-i-localitzacions.html" class="nav-primary">Mapes i Localitzacions</a>
+          <a href="npcs-i-faccions.html">NPCs i Faccions</a>
+          <a href="diari-de-campanya.html">Diari de Campanya</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- INTRO -->
+      <section class="section">
+        <div class="section-inner">
+          <div class="eyebrow">Orientar-se a Elyssia</div>
+          <h1 class="section-title">Mapes i Localitzacions</h1>
+          <p class="section-lead">
+            Aquí teniu una vista d’ocell de la campanya: des dels continents d’Elyssia fins a la
+            petita vila fronterera de Phandalin i les ruïnes on us heu endinsat. Serveix tant
+            perquè els jugadors situïn la història com perquè el DM tingui tots els escenaris
+            clau agrupats en un sol lloc.
+          </p>
+          <div class="chips-row">
+            <span class="chip">🌍 Mapa global del món</span>
+            <span class="chip">🏞️ Regió de Midland i costa</span>
+            <span class="chip">🏘️ Ciutats i pobles</span>
+            <span class="chip">⚔️ Zones d’aventura visitades i rumorades</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ELYSSIA GLOBAL -->
+      <section class="section">
+        <div class="section-inner grid grid-2">
+          <div class="map-frame">
+            <img
+              src="img/maps/1.%20MAPA%20DEFINITIU%20-%20ELYSSIA.png"
+              alt="Mapa general del món d’Elyssia amb continents i regions principals"
+            >
+          </div>
+          <div>
+            <div class="eyebrow">El món conegut</div>
+            <h2 class="section-title">Elyssia i l’Imperi sense Nom</h2>
+            <p class="section-lead">
+              Elyssia és un món on la màgia i la naturalesa estan entrellaçades des de l’origen.
+              Dos grans continents, <strong>Efri</strong> i <strong>Orgon</strong>, concentren la
+              major part de civilitzacions humanoides, totes sota la llarga ombra d’un Imperi
+              que fa mil·lennis que perdura i un Emperador del qual ningú recorda l’inici.
+            </p>
+            <div class="card card-soft" style="margin-top: 1rem;">
+              <h3 class="card-title">On sou dins d’aquest mapa?</h3>
+              <div class="card-body">
+                <p>
+                  La vostra història transcorre a la <strong>regió de Midland Counties</strong>, una
+                  zona relativament allunyada del centre de poder imperial. Ports comercials,
+                  rutes de caravanes, boscos ancestrals i ruïnes oblidats són l’escenari ideal
+                  perquè aventurers anònims puguin convertir-se en llegenda.
+                </p>
+                <p class="map-meta">
+                  <strong>DM:</strong> aquest mapa serveix per donar escala èpica a la campanya.
+                  No cal revelar tots els noms de regions de cop; pots anar “fent zoom” a mesura
+                  que la història s’expandeix.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MIDLAND + COSTA -->
+      <section class="section">
+        <div class="section-inner grid grid-2 flip">
+          <div>
+            <div class="eyebrow">Regió de joc</div>
+            <h2 class="section-title">Midland Counties i la Badia de Midland</h2>
+            <p class="section-lead">
+              Midland Counties està governada per un <strong>Virrei</strong> en nom de l’Imperi i
+              quatre Grans Lords que controlen política, finances i defensa. És una regió
+              rica en fusta, gemmes i comerç marítim, però també plena de carreteres
+              perilloses, bandits i cultes que s’alcen a l’ombra del poder imperial.
+            </p>
+            <div class="card" style="margin-top: 1rem;">
+              <h3 class="card-title">La costa i les rutes comercials</h3>
+              <div class="card-body">
+                <p>
+                  A la <strong>Badia de Midland</strong> s’alcen ciutats portuàries com Lelis, on
+                  arriben mercaders, mariners, aventurers i emisaris de faccions com
+                  l’Aliança dels Lores o l’Orden del Guantelete. Des d’aquí surten les
+                  caravanes que connecten el litoral amb l’interior fronterer.
+                </p>
+                <div class="chips-row">
+                  <span class="chip">Virrei · Tropes d’elit de l’Imperi</span>
+                  <span class="chip">Rutes de recaptació i caravanes</span>
+                  <span class="chip">Tabernes i contractes de mercenaris</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="map-frame">
+            <img
+              src="img/maps/2.%20Costa%20de%20l'espasa.JPG"
+              alt="Mapa de la costa amb ports i rutes principals de la regió"
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- LELIS -->
+      <section class="section">
+        <div class="section-inner grid grid-2">
+          <div class="map-frame">
+            <img
+              src="img/maps/3.%20Lelis.JPG"
+              alt="Mapa de la ciutat costanera de Lelis"
+            >
+          </div>
+          <div>
+            <div class="eyebrow">Punt de partida</div>
+            <h2 class="section-title">Lelis, ciutat de mar i promeses</h2>
+            <p class="section-lead">
+              Lelis és una ciutat costanera plena de color, on el cel es fon amb el mar i cada
+              capvespre tenyeix els molls de taronges i violetes. És aquí on va començar tot:
+              una feina aparentment senzilla d’escorta per a Gundren Buscarroques.
+            </p>
+            <div class="card card-soft" style="margin-top: 1rem;">
+              <h3 class="card-title">Vida a Lelis</h3>
+              <div class="card-body">
+                <p>
+                  Carrers de pedra blanca, teulades blaves i verdes, olor de sal, espècies
+                  exòtiques i música als carrers. Els pescadors fan ofrenes diàries a
+                  <strong>Lelis, deessa del mar</strong>, i molts habitants porten tatuatges
+                  d’onades o peixos com a símbol de llinatge.
+                </p>
+                <p class="map-meta">
+                  Des d’aquesta ciutat surten contractes, rumors de tresors perduts i
+                  encàrrecs de faccions que busquen mans valentes lluny de les capitals
+                  imperials.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHANDALIN -->
+      <section class="section">
+        <div class="section-inner grid grid-2 flip">
+          <div>
+            <div class="eyebrow">La frontera salvatge</div>
+            <h2 class="section-title">Phandalin, vila en reconstrucció</h2>
+            <p class="section-lead">
+              Phandalin és una petita vila fronterera alçadada sobre les ruïnes d’un antic
+              assentament. És el vostre nou centre d’operacions, envoltada de granges,
+              granges abandonades, boscos i antigues carreteres mig oblidades.
+            </p>
+            <div class="card" style="margin-top: 1rem;">
+              <h3 class="card-title">Punts clau del poble</h3>
+              <div class="card-body">
+                <p>
+                  Aquí hi trobareu llocs com <strong>Subministres Barden</strong>, la posada
+                  <strong>Escut de Lleó</strong>, la vella casa dels <strong>Edermath</strong> o
+                  la <strong>Mansió Thendar</strong>, enrunada damunt d’un turó i amb més
+                  secrets dels que aparenta.
+                </p>
+                <div class="chips-row">
+                  <span class="chip">Centre de subministraments i rumors</span>
+                  <span class="chip">Base de la Marca Roja (fins als vostres actes)</span>
+                  <span class="chip">Connexió amb boscos, ruïnes i carreteres</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="map-frame">
+            <img
+              src="img/maps/Phandalin-player-map.jpg"
+              alt="Mapa de Phandalin amb els principals edificis i camins"
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- ESCENARIS D'AVENTURA -->
+      <section class="section">
+        <div class="section-inner">
+          <div class="eyebrow">Escenaris d’aventura</div>
+          <h2 class="section-title">Coves, ruïnes i castells en l’ombra</h2>
+          <p class="section-lead">
+            A continuació tens els mapes dels principals escenaris de la campanya. Alguns ja
+            han estat explorats pel grup, d’altres només es coneixen com a rumors o pistes.
+            El DM pot decidir quan i com mostrar-los als jugadors.
+          </p>
+
+          <div class="scenes-grid">
+            <!-- Cragmaw Hideout -->
+            <article class="scene-card">
+              <div class="scene-image">
+                <img
+                  src="img/maps/Cragmaw%20Hideout%20v1.0.jpg"
+                  alt="Mapa de la cova goblin prop de la carretera, amb riu i passarel·les"
+                >
+              </div>
+              <div class="scene-body">
+                <div class="scene-tagline">Partida inicial</div>
+                <h3 class="scene-title">Cova dels goblins (Camí de Lelis a Phandalin)</h3>
+                <p>
+                  Una emboscada a la carretera va conduir el grup fins a aquesta cova
+                  goblin, on rastres de carros saquejats i presoners deixaven clar que
+                  algú estava atacant sistemàticament les caravanes de la regió.
+                </p>
+                <p class="map-meta">
+                  <strong>Ús recomanat:</strong> recordar com va començar l’aventura i
+                  visualitzar el primer enfrontament seriós del grup.
+                </p>
+              </div>
+            </article>
+
+            <!-- Redbrand Hideout / Mansió Thendar -->
+            <article class="scene-card">
+              <div class="scene-image">
+                <img
+                  src="img/maps/Redbrand%20Hideout%20v1.0.jpg"
+                  alt="Mapa del cau subterrani sota una vella mansió"
+                >
+              </div>
+              <div class="scene-body">
+                <div class="scene-tagline">Phandalin · Sessions 3-4</div>
+                <h3 class="scene-title">Mansió Thendar i cau de la Marca Roja</h3>
+                <p>
+                  Sota les ruïnes de la Mansió Thendar, els rufians de la
+                  <strong>Marca Roja</strong> havien establert el seu cau: presons, cambres
+                  secretes i una presència misteriosa observant des de les ombres.
+                </p>
+                <p class="map-meta">
+                  <strong>Ús recomanat:</strong> revisar aliats alliberats, pistes trobades i
+                  connexions amb faccions més grans que simplement uns bandits locals.
+                </p>
+              </div>
+            </article>
+
+            <!-- Thundertree (Arboltrueno) -->
+            <article class="scene-card">
+              <div class="scene-image">
+                <img
+                  src="img/maps/Thundertree%20v1.0.jpg"
+                  alt="Mapa del poble en ruïnes d’Arboltrueno envoltat de natura"
+                >
+              </div>
+              <div class="scene-body">
+                <div class="scene-tagline">Poble en ruïnes</div>
+                <h3 class="scene-title">Arboltrueno, el poble sota l’ombra del drac</h3>
+                <p>
+                  Un poblat abandonat, envaït per la vegetació i criatures estranyes.
+                  Aquí, un drac verd anomenat <strong>Venomfang</strong> ha reclamat les ruïnes
+                  com a domini provisional, mentre mira més enllà buscant un refugi més
+                  digne de la seva grandesa.
+                </p>
+                <p class="map-meta">
+                  <strong>Ús recomanat:</strong> recordar pactes, deutes pendents i possibles
+                  conseqüències de tractar amb un drac.
+                </p>
+              </div>
+            </article>
+
+            <!-- Cragmaw Castle / Castell Bocapeñasco -->
+            <article class="scene-card">
+              <div class="scene-image">
+                <img
+                  src="img/maps/Cragmaw%20Castle%20Area%20v1%2070pps.jpg"
+                  alt="Mapa de la zona del castell en ruïnes envoltat de bosc"
+                >
+              </div>
+              <div class="scene-body">
+                <div class="scene-tagline">Rumors i pistes</div>
+                <h3 class="scene-title">Castell Bocapeñasco</h3>
+                <p>
+                  Es parla d’un antic castell en ruïnes, amagat entre boscos i turons,
+                  on criatures goblinoides i altres aliats han establert una nova
+                  fortalesa. Alguns rumors l’assenyalen com a destí de presoners importants.
+                </p>
+                <p class="map-meta">
+                  <strong>Estat a la campanya:</strong> encara pendent d’explorar. El DM pot
+                  decidir quina informació exacta coneixen els personatges en funció de les
+                  pistes que hagin seguit fins ara.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>Els Ecos d’Elyssia · Mapes i Localitzacions.</span>
+        <span>Adaptació lliure de “La Mina Perduda de Phandelver”.</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
