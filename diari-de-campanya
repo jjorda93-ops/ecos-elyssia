@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diari de Campanya · Els Ecos d’Elyssia</title>
+  <style>
+    :root {
+      --bg-body: #1b130d;
+      --bg-panel: #24160f;
+      --bg-card: #f5ecdb;
+      --bg-card-soft: #efe1c7;
+      --text-main: #1a130c;
+      --text-muted: #5b4a36;
+      --accent: #8b2e2e;
+      --accent-soft: #c25d3f;
+      --border-dark: #3a2616;
+      --border-light: #d2b894;
+      --max-width: 1120px;
+      --radius-lg: 1.1rem;
+      --shadow-soft: 0 14px 35px rgba(0,0,0,0.55);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #3a2315 0, #1b130d 40%, #120c08 100%);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER */
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(18, 12, 8, 0.94);
+      border-bottom: 2px solid #4b2f1b;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.7);
+    }
+
+    .header-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0.6rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: #fef3c7;
+    }
+
+    .brand-seal {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: 2px solid #facc6b;
+      background:
+        radial-gradient(circle at 30% 20%, #facc6b 0, #b91c1c 45%, #111827 100%);
+      box-shadow: 0 0 18px rgba(250, 204, 107, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-seal::after {
+      content: "";
+      position: absolute;
+      inset: 22%;
+      border-radius: inherit;
+      border: 2px solid rgba(15, 23, 42, 0.9);
+    }
+
+    .brand-title {
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1.05rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .brand-sub {
+      font-size: 0.75rem;
+      color: #e5e7eb;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+    }
+
+    .nav a {
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      color: #f3e9d5;
+      background: rgba(15, 23, 42, 0.2);
+      transition: all 0.16s ease-out;
+      white-space: nowrap;
+    }
+
+    .nav a:hover {
+      background: rgba(148, 163, 184, 0.25);
+      border-color: rgba(249, 250, 251, 0.8);
+    }
+
+    .nav a.nav-primary {
+      background: linear-gradient(to right, #b91c1c, #c25d3f);
+      border-color: #facc6b;
+      color: #fef9c3;
+      font-weight: 600;
+      box-shadow: 0 8px 22px rgba(185, 28, 28, 0.75);
+    }
+
+    @media (max-width: 720px) {
+      .header-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+      .nav { justify-content: center; }
+    }
+
+    /* LAYOUT GENERAL */
+
+    .main { flex: 1; }
+
+    .section {
+      padding: 3rem 1.25rem;
+    }
+
+    .section-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1.45rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin: 0 0 0.75rem;
+      color: #3b2716;
+    }
+
+    .section-lead {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 44rem;
+      line-height: 1.6;
+    }
+
+    .eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.7rem;
+    }
+
+    .chip {
+      font-size: 0.78rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: #f9f1e0;
+      border: 1px solid #e2cfa9;
+      color: var(--text-muted);
+    }
+
+    /* TIMELINE HEADER */
+
+    .timeline-steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .timeline-step {
+      position: relative;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.45);
+    }
+
+    .timeline-step span {
+      opacity: 0.9;
+    }
+
+    /* LOG CARDS */
+
+    .log-list {
+      margin-top: 2rem;
+      display: grid;
+      gap: 1.7rem;
+    }
+
+    .log-card {
+      position: relative;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-soft);
+      padding: 1.3rem 1.3rem 1.2rem;
+      overflow: hidden;
+    }
+
+    .log-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.35), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .log-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .log-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .log-pill {
+      font-size: 0.72rem;
+      padding: 0.08rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid #e2cfa9;
+      background: #fdf6e7;
+      color: var(--text-muted);
+    }
+
+    .log-title {
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1.1rem;
+      margin: 0 0 0.4rem;
+      color: #3b2716;
+    }
+
+    .log-subtitle {
+      font-size: 0.88rem;
+      color: #a16235;
+      margin-bottom: 0.55rem;
+    }
+
+    .log-body {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .log-body h4 {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin: 0.9rem 0 0.35rem;
+    }
+
+    .log-body ul {
+      margin: 0.2rem 0 0.5rem 1.1rem;
+      padding: 0;
+    }
+
+    .log-body li {
+      margin-bottom: 0.15rem;
+    }
+
+    /* CURRENT STATUS CARD */
+
+    .status-grid {
+      display: grid;
+      gap: 1.3rem;
+      margin-top: 1.4rem;
+    }
+
+    @media (min-width: 900px) {
+      .status-grid {
+        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.1fr);
+      }
+    }
+
+    .status-card {
+      background: var(--bg-card-soft);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-soft);
+      padding: 1.2rem 1.2rem 1.1rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .status-card h3 {
+      margin: 0 0 0.4rem;
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1.05rem;
+      color: #3b2716;
+    }
+
+    .status-card p {
+      margin: 0.25rem 0;
+    }
+
+    .status-tags {
+      margin-top: 0.6rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .status-tag {
+      font-size: 0.75rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid #e2cfa9;
+      background: #fdf6e7;
+      color: var(--text-muted);
+    }
+
+    /* BARD BOX */
+
+    .bard-box {
+      margin-top: 1.5rem;
+      background: linear-gradient(135deg, #fdf6e7, #f5e6c8);
+      border-radius: var(--radius-lg);
+      border: 1px solid #e2cfa9;
+      padding: 0.9rem 1rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .bard-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #a16235;
+      margin-bottom: 0.3rem;
+    }
+
+    .bard-box p {
+      margin: 0.2rem 0;
+      font-style: italic;
+    }
+
+    /* FOOTER */
+
+    .site-footer {
+      border-top: 2px solid #4b2f1b;
+      background: #130c07;
+      padding: 1.2rem 1.25rem 1.5rem;
+      color: #cbd5f5;
+      font-size: 0.8rem;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 720px) {
+      .footer-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="index.html" class="brand">
+          <div class="brand-seal" aria-hidden="true"></div>
+          <div>
+            <div class="brand-title">Els Ecos d’Elyssia</div>
+            <div class="brand-sub">Campanya de Dungeons & Dragons</div>
+          </div>
+        </a>
+        <nav class="nav">
+          <a href="mapes-i-localitzacions.html">Mapes i Localitzacions</a>
+          <a href="npcs-i-faccions.html">NPCs i Faccions</a>
+          <a href="diari-de-campanya.html" class="nav-primary">Diari de Campanya</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- INTRO -->
+      <section class="section">
+        <div class="section-inner">
+          <div class="eyebrow">El fil de la història</div>
+          <h1 class="section-title">Diari de Campanya</h1>
+          <p class="section-lead">
+            Resum de què ha passat a cada sessió, quines pistes té el grup i quins fils
+            estan oberts ara mateix. Pensat per rellegir abans de cada partida sense
+            revelar cap secret de <strong>DM</strong>.
+          </p>
+
+          <div class="chips-row">
+            <span class="chip">Emboscades i coves goblins</span>
+            <span class="chip">Phandalin i la Marca Roja</span>
+            <span class="chip">Mansió Thendar i misteris</span>
+            <span class="chip">Arboltrueno i pacte amb el drac</span>
+          </div>
+
+          <div class="timeline-steps">
+            <div class="timeline-step"><span>Sessió 1–2 · De Lelis a Phandalin</span></div>
+            <div class="timeline-step"><span>Sessió 3 · Mansió Thendar (I)</span></div>
+            <div class="timeline-step"><span>Sessió 4 · Mansió Thendar (II)</span></div>
+            <div class="timeline-step"><span>Sessió 5 · Arboltrueno</span></div>
+          </div>
+
+          <div class="bard-box">
+            <div class="bard-label">Cançó de taverna sobre el grup</div>
+            <p>
+              “Oh, què en diran, què en diran, d’aquest grupet que va voltant,
+              d’escortar un carro a la vora del mar, ara una mina hauran de trobar…”
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- LOG SESSIONS -->
+      <section class="section">
+        <div class="section-inner">
+          <div class="log-list">
+
+            <!-- SESSIÓ 1–2 -->
+            <article class="log-card">
+              <div class="log-inner">
+                <div class="log-meta">
+                  <span class="log-pill">Sessió 1–2</span>
+                  <span>De Lelis a Phandalin · Emboscada i cova goblin</span>
+                </div>
+                <h2 class="log-title">Caravana a la costa i la primera sang</h2>
+                <div class="log-subtitle">
+                  Un encàrrec senzill d’escorta que es converteix en una emboscada letal.
+                </div>
+                <div class="log-body">
+                  <h4>Què va passar</h4>
+                  <ul>
+                    <li>
+                      A <strong>Lelis</strong>, els aventurers accepten escortar el carro de
+                      <strong>Gundren Buscarroques</strong> fins a <strong>Phandalin</strong>.
+                    </li>
+                    <li>
+                      Al camí, troben cavalls morts i rastres de lluita: el senyal clar
+                      d’una <strong>emboscada goblin</strong>.
+                    </li>
+                    <li>
+                      Seguint les pistes, descobreixen la <strong>cova dels goblins</strong> a
+                      la vora del rierol i hi entren per resoldre el misteri.
+                    </li>
+                    <li>
+                      Dins la cova, s’enfronten a goblins i caps locals, alliberen
+                      <strong>Sildar Hallwinter</strong> i descobreixen que
+                      <strong>Gundren</strong> ha estat traslladat al
+                      <strong>Castell Bocapeñasco</strong>.
+                    </li>
+                    <li>
+                      Després de netejar la cova, el grup continua el viatge i arriba a
+                      <strong>Phandalin</strong>, on entrega el carro a
+                      <strong>Subministres Barden</strong>.
+                    </li>
+                  </ul>
+
+                  <h4>Pistes i conseqüències per al grup</h4>
+                  <ul>
+                    <li>
+                      Saben que <strong>Gundren</strong> està viu però presoner al
+                      <strong>Castell Bocapeñasco</strong>, controlat per goblins i altres
+                      criatures.
+                    </li>
+                    <li>
+                      Coneixen el nom de <strong>Bocapeñasco</strong>, però encara no la
+                      ubicació exacta del castell.
+                    </li>
+                    <li>
+                      A Phandalin, descobreixen que la vila pateix els abusos de la
+                      <strong>Marca Roja</strong>.
+                    </li>
+                    <li>
+                      <strong>Dan Edermath</strong> els parla de la família
+                      <strong>Edermath</strong> desapareguda i del símbol d’una
+                      <strong>aranya negra</strong> relacionat amb bandits i altres perills.
+                    </li>
+                    <li>
+                      Reben la <strong>Brúixola del Mal</strong> (amulet) que assenyala presència
+                      de mal a prop, i diverses pistes sobre entrades secretes a una vella
+                      mansió al turó.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+
+            <!-- SESSIÓ 3 -->
+            <article class="log-card">
+              <div class="log-inner">
+                <div class="log-meta">
+                  <span class="log-pill">Sessió 3</span>
+                  <span>Phandalin · Mansió Thendar (I)</span>
+                </div>
+                <h2 class="log-title">Sota la Mansió Thendar: el primer descens</h2>
+                <div class="log-subtitle">
+                  El grup segueix el rastre de la Marca Roja fins a les profunditats sota la vila.
+                </div>
+                <div class="log-body">
+                  <h4>Què va passar</h4>
+                  <ul>
+                    <li>
+                      Amb l’ajuda del petit <strong>Hojalisa</strong>, descobreixen l’entrada
+                      secreta a sota de la <strong>Mansió Thendar</strong>, on es creu que
+                      s’amaga la <strong>Marca Roja</strong>.
+                    </li>
+                    <li>
+                      Després d’uns dies observant, decideixen entrar pel pas amagat i baixar
+                      a les galeries subterrànies.
+                    </li>
+                    <li>
+                      Allà es troben amb un <strong>Nothic</strong>, una criatura d’un sol ull
+                      obsessionada amb els secrets, que els ataca i acaba sent derrotada.
+                    </li>
+                    <li>
+                      Continuant l’exploració, arriben al laboratori d’un mag: en el combat
+                      s’hi barregen rufians, un <strong>osgo</strong> i un
+                      <strong>goblin</strong>. La batalla és dura, però el grup aconsegueix
+                      sortir-ne victoriós.
+                    </li>
+                    <li>
+                      El mag principal aconsegueix fugir, però queda <strong>estabornit</strong>
+                      un petit mag <strong>tiefling</strong>, que el grup captura com a
+                      possible font d’informació.
+                    </li>
+                  </ul>
+
+                  <h4>Pistes i conseqüències per al grup</h4>
+                  <ul>
+                    <li>
+                      Es confirma que la <strong>Mansió Thendar</strong> és el cau de la
+                      <strong>Marca Roja</strong> i que hi ha <strong>màgia</strong> i
+                      <strong>organització</strong> al darrere.
+                    </li>
+                    <li>
+                      El mag fugitiu i el <strong>tiefling</strong> apunten a una trama més
+                      àmplia que va més enllà de simples bandits.
+                    </li>
+                    <li>
+                      El grup guanya reputació a Phandalin com a herois que planten cara
+                      als rufians de la Marca Roja.
+                    </li>
+                    <li>
+                      El <strong>tiefling capturat</strong> queda com un interrogatori pendent
+                      que pot revelar informació sobre els seus caps i la mina.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+
+            <!-- SESSIÓ 4 -->
+            <article class="log-card">
+              <div class="log-inner">
+                <div class="log-meta">
+                  <span class="log-pill">Sessió 4</span>
+                  <span>Phandalin · Mansió Thendar (II) i misteris oberts</span>
+                </div>
+                <h2 class="log-title">La Marca Roja tremola, però no cau del tot</h2>
+                <div class="log-subtitle">
+                  La pressió sobre la banda criminal augmenta i surten a la llum històries més fosques.
+                </div>
+                <div class="log-body">
+                  <h4>Què va passar</h4>
+                  <ul>
+                    <li>
+                      El grup continua explorant el complex sota la Mansió Thendar, acabant
+                      de desarticular bona part de la <strong>Marca Roja</strong> a Phandalin.
+                    </li>
+                    <li>
+                      Es descobreix que la família <strong>Edermath</strong> ha
+                      desaparegut en circumstàncies sospitoses, probablement relacionada amb
+                      la mateixa banda i amb el símbol de l’<strong>aranya negra</strong>.
+                    </li>
+                    <li>
+                      Es fan servir objectes com l’<strong>espelma màgica</strong>, que mostra
+                      visions inquietants i fa intuir que hi ha forces i conspiracions que el
+                      grup encara no entén del tot.
+                    </li>
+                    <li>
+                      <strong>Phandalin</strong> comença a respirar una mica més tranquil·la,
+                      però queden rastres de por i preguntes sense resposta.
+                    </li>
+                  </ul>
+
+                  <h4>Pistes i conseqüències per al grup</h4>
+                  <ul>
+                    <li>
+                      El símbol de l’<strong>aranya negra</strong> apareix vinculat a
+                      goblins, a la família Edermath i a altres rastres: hi ha algú a les
+                      ombres que mou fils des de fa temps.
+                    </li>
+                    <li>
+                      Tot i haver colpejat fort la <strong>Marca Roja</strong>, és evident
+                      que hi ha caps i aliats que no han sortit encara a la llum.
+                    </li>
+                    <li>
+                      L’ús de màgia com l’<strong>espelma</strong> i l’<strong>amulet</strong>
+                      fa pensar que alguna cosa més gran està desestabilitzant la regió.
+                    </li>
+                    <li>
+                      El grup té nous motius per investigar la mina i el que envolta els
+                      <strong>Buscarroques</strong>.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+
+            <!-- SESSIÓ 5 -->
+            <article class="log-card">
+              <div class="log-inner">
+                <div class="log-meta">
+                  <span class="log-pill">Sessió 5</span>
+                  <span>Arboltrueno · Pacte amb el drac</span>
+                </div>
+                <h2 class="log-title">Arboltrueno, el poble sota l’ombra de Venomfang</h2>
+                <div class="log-subtitle">
+                  Ruïnes cobertes de vegetació, cultes estranys i un drac que busca una llar millor.
+                </div>
+                <div class="log-body">
+                  <h4>Què va passar</h4>
+                  <ul>
+                    <li>
+                      El grup viatja fins a <strong>Arboltrueno</strong>, un antic poble
+                      ara en ruïnes, envaït per vegetació, criatures i perills.
+                    </li>
+                    <li>
+                      En el camí i al poble s’enfronten a <strong>criatures menors</strong>
+                      i enredaderes que dificulten el pas.
+                    </li>
+                    <li>
+                      Es troben amb membres del <strong>Culte del Drac</strong>, amb qui
+                      acaben col·laborant temporalment per presentar una <strong>ofrena</strong>
+                      al drac verd.
+                    </li>
+                    <li>
+                      Es troben amb <strong>Venomfang</strong>, el drac verd jove que ha
+                      reclamat Arboltrueno com a refugi provisional.
+                    </li>
+                    <li>
+                      Es tanca un <strong>pacte</strong>: si el grup allibera el
+                      <strong>Castell Bocapeñasco</strong> per a Venomfang, el drac podrà
+                      instal·lar-s’hi i deixar enrere les ruïnes tan properes al poble.
+                    </li>
+                    <li>
+                      Apareix una nova aliada: <strong>Llunara</strong>, una elfa viatgera
+                      que arriba a Phandalin i demana ajuda per la qüestió del drac, i
+                      s’afegeix a l’aventura.
+                    </li>
+                  </ul>
+
+                  <h4>Pistes i conseqüències per al grup</h4>
+                  <ul>
+                    <li>
+                      El grup ha assumit un <strong>pacte delicat</strong> amb
+                      <strong>Venomfang</strong>: prendre el castell per a un drac no és una
+                      decisió innocua, i pot tenir conseqüències polítiques i morals.
+                    </li>
+                    <li>
+                      Sabem que el <strong>Castell Bocapeñasco</strong> és clau, tant per
+                      rescatar <strong>Gundren</strong> com per complir el pacte amb el drac.
+                    </li>
+                    <li>
+                      S’obre la possibilitat de viatjar a la <strong>gran biblioteca</strong>
+                      de la ciutat d’origen per investigar més sobre dracs, la mina i l’Aranya
+                      Negra.
+                    </li>
+                    <li>
+                      Les connexions entre <strong>Culte del Drac</strong>, la
+                      <strong>Marca Roja</strong> i els símbols de l’<strong>aranya negra</strong>
+                      encara no són clares, però tot apunta cap al mateix focus: la mina perduda
+                      i la Forja.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- CURRENT STATUS -->
+      <section class="section">
+        <div class="section-inner">
+          <div class="eyebrow">On és el grup ara</div>
+          <h2 class="section-title">Objectius i fils oberts després de la Sessió 5</h2>
+          <p class="section-lead">
+            Sense saber encara qui hi ha darrere de tot, els herois tenen prou peces del
+            trencaclosques per decidir on posar el focus a les properes sessions. Aquesta
+            secció resumeix el que els <strong>personatges saben</strong> i el que poden fer
+            a partir d’ara.
+          </p>
+
+          <div class="status-grid">
+            <div class="status-card">
+              <h3>Objectius principals del grup</h3>
+              <ul>
+                <li>
+                  <strong>Rescatar Gundren Buscarroques</strong> al
+                  <strong>Castell Bocapeñasco</strong>, on es creu que és presoner.
+                </li>
+                <li>
+                  <strong>Complir (o no) el pacte amb Venomfang</strong> i decidir
+                  quina relació volen mantenir amb el drac verd.
+                </li>
+                <li>
+                  <strong>Acabar de desarticular la Marca Roja</strong> i esbrinar
+                  qui són els seus veritables caps i aliats.
+                </li>
+                <li>
+                  <strong>Investigar el símbol de l’Aranya Negra</strong> i la seva
+                  relació amb goblins, bandits i la desaparició de la família Edermath.
+                </li>
+              </ul>
+
+              <h3 style="margin-top: 1rem;">Altres fils que poden seguir</h3>
+              <ul>
+                <li>
+                  Interrogar el <strong>tiefling capturat</strong> a la Mansió Thendar per
+                  saber qui li donava ordres i què sap de la mina.
+                </li>
+                <li>
+                  Buscar informació a <strong>Lelis</strong> o en cercles d’Arpistes
+                  sobre la mina perduda i els moviments de l’Aranya Negra.
+                </li>
+                <li>
+                  Enfortir aliances amb faccions com l’<strong>Aliança de Lords</strong>,
+                  els <strong>Arpistes</strong> o altres grups de la regió.
+                </li>
+              </ul>
+            </div>
+
+            <div class="status-card">
+              <h3>Situació general percebuda pels PJ</h3>
+              <p>
+                La regió de <strong>Midland Counties</strong> sembla més inestable del
+                que indicaven els rumors inicials. Entre <strong>bans criminals</strong>,
+                <strong>dracs</strong>, <strong>cultes</strong> i símbols d’una
+                <strong>aranya negra</strong> que es repeteix, és evident que algú
+                està aprofitant el caos per moure fils des de l’ombra.
+              </p>
+              <p>
+                La sensació del grup és que la <strong>mina perduda</strong> i la
+                <strong>Forja</strong> estan al centre de tot, tot i que encara no saben
+                exactament per què.
+              </p>
+
+              <div class="status-tags">
+                <span class="status-tag">Gundren presoner</span>
+                <span class="status-tag">Pacte amb Venomfang</span>
+                <span class="status-tag">Marca Roja colpejada, però viva</span>
+                <span class="status-tag">Aranya Negra com a rumor recurrent</span>
+                <span class="status-tag">Phandalin com a base d’operacions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>Els Ecos d’Elyssia · Diari de Campanya.</span>
+        <span>Adaptació lliure de “La Mina Perduda de Phandelver”.</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
