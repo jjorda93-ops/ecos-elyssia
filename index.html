@@ -6,42 +6,34 @@
   <title>Els Ecos d’Elyssia</title>
   <style>
     :root {
-      --bg-body: #0b1020;
-      --bg-surface: #0f172a;
-      --bg-card: #111827;
-      --bg-soft: #020617;
-      --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
-      --accent: #a855f7;
-      --accent-soft: rgba(168, 85, 247, 0.16);
-      --border-subtle: #1f2937;
-      --radius-xl: 1.25rem;
-      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.6);
-      --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.5);
+      --bg-body: #1b130d;
+      --bg-panel: #24160f;
+      --bg-card: #f5ecdb;
+      --bg-card-soft: #efe1c7;
+      --text-main: #1a130c;
+      --text-muted: #5b4a36;
+      --accent: #8b2e2e;
+      --accent-soft: #c25d3f;
+      --border-dark: #3a2616;
+      --border-light: #d2b894;
       --max-width: 1120px;
+      --radius-lg: 1.1rem;
+      --shadow-soft: 0 14px 35px rgba(0,0,0,0.55);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
+      background: radial-gradient(circle at top, #3a2315 0, #1b130d 40%, #120c08 100%);
       color: var(--text-main);
       -webkit-font-smoothing: antialiased;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color: inherit; text-decoration: none; }
 
-    img {
-      max-width: 100%;
-      display: block;
-    }
+    img { max-width: 100%; display: block; }
 
     .page {
       min-height: 100vh;
@@ -55,15 +47,15 @@
       position: sticky;
       top: 0;
       z-index: 40;
-      backdrop-filter: blur(16px);
-      background: linear-gradient(to bottom, rgba(15,23,42,0.92), rgba(15,23,42,0.75), transparent);
-      border-bottom: 1px solid rgba(31,41,55,0.7);
+      background: rgba(18, 12, 8, 0.94);
+      border-bottom: 2px solid #4b2f1b;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.7);
     }
 
     .header-inner {
       max-width: var(--max-width);
       margin: 0 auto;
-      padding: 0.75rem 1.25rem;
+      padding: 0.6rem 1.25rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -74,99 +66,91 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
+      color: #fef3c7;
     }
 
-    .brand-logo {
+    .brand-seal {
       width: 40px;
       height: 40px;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 20%, #a855f7, #0ea5e9 40%, #22c55e 70%, #0f172a);
-      box-shadow: 0 0 25px rgba(168, 85, 247, 0.7);
+      border: 2px solid #facc6b;
+      background:
+        radial-gradient(circle at 30% 20%, #facc6b 0, #b91c1c 45%, #111827 100%);
+      box-shadow: 0 0 18px rgba(250, 204, 107, 0.7);
       position: relative;
       overflow: hidden;
     }
 
-    .brand-logo::after {
+    .brand-seal::after {
       content: "";
       position: absolute;
-      inset: 25%;
+      inset: 22%;
       border-radius: inherit;
-      border: 2px solid rgba(15,23,42,0.9);
-      box-shadow: inset 0 0 20px rgba(15,23,42,0.9);
+      border: 2px solid rgba(15, 23, 42, 0.9);
     }
 
-    .brand-text-title {
+    .brand-title {
+      font-family: "Georgia", "Times New Roman", serif;
       font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
+      font-weight: 700;
     }
 
-    .brand-text-sub {
+    .brand-sub {
       font-size: 0.75rem;
-      color: var(--text-muted);
+      color: #e5e7eb;
     }
 
     .nav {
       display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      flex-wrap: wrap;
+      gap: 0.4rem;
       font-size: 0.85rem;
     }
 
     .nav a {
-      padding: 0.4rem 0.9rem;
+      padding: 0.35rem 0.9rem;
       border-radius: 999px;
-      border: 1px solid transparent;
-      color: var(--text-muted);
-      transition: all 0.18s ease-out;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      color: #f3e9d5;
+      background: rgba(15, 23, 42, 0.2);
+      transition: all 0.16s ease-out;
       white-space: nowrap;
     }
 
     .nav a:hover {
-      color: var(--text-main);
-      border-color: rgba(148,163,184,0.7);
-      background: radial-gradient(circle at top, rgba(148,163,184,0.12), transparent 70%);
+      background: rgba(148, 163, 184, 0.25);
+      border-color: rgba(249, 250, 251, 0.8);
     }
 
     .nav a.nav-primary {
-      background: radial-gradient(circle at top left, #a855f7, #6366f1);
-      color: #f9fafb;
-      border-color: rgba(148,163,184,0.35);
-      box-shadow: 0 10px 30px rgba(88, 28, 135, 0.8);
+      background: linear-gradient(to right, #b91c1c, #c25d3f);
+      border-color: #facc6b;
+      color: #fef9c3;
       font-weight: 600;
+      box-shadow: 0 8px 22px rgba(185, 28, 28, 0.75);
     }
 
     .nav a.nav-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 14px 40px rgba(88, 28, 135, 1);
+      box-shadow: 0 11px 30px rgba(185, 28, 28, 0.95);
     }
 
     @media (max-width: 720px) {
       .header-inner {
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-direction: column;
         text-align: center;
       }
-      .nav {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
+      .nav { justify-content: center; }
     }
 
-    /* LAYOUT BASE */
+    /* LAYOUT GENERAL */
 
-    .main {
-      flex: 1;
-    }
+    .main { flex: 1; }
 
     .section {
-      padding: 3.5rem 1.25rem;
-    }
-
-    .section.tight {
-      padding-top: 2.5rem;
-      padding-bottom: 2.5rem;
+      padding: 3rem 1.25rem;
     }
 
     .section-inner {
@@ -175,107 +159,68 @@
     }
 
     .section-title {
-      font-size: 1.4rem;
-      font-weight: 700;
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1.45rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
       margin: 0 0 0.75rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .section-kicker {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--accent);
-      margin-bottom: 0.3rem;
+      color: #3b2716;
     }
 
     .section-lead {
-      max-width: 42rem;
-      color: var(--text-muted);
       font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 40rem;
       line-height: 1.6;
     }
 
-    .grid {
-      display: grid;
-      gap: 1.5rem;
-    }
-
-    @media (min-width: 768px) {
-      .grid-2 {
-        grid-template-columns: 1.4fr 1.1fr;
-      }
-      .grid-3 {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-    }
-
-    .card {
-      background: radial-gradient(circle at top left, rgba(15,23,42,1), rgba(2,6,23,1));
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-subtle);
-      padding: 1.5rem 1.4rem;
-    }
-
-    .card-soft {
-      background: radial-gradient(circle at top, rgba(15,23,42,0.9), rgba(2,6,23,0.95));
-      border-radius: var(--radius-xl);
-      border: 1px solid rgba(31,41,55,0.9);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.18rem 0.65rem;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.95);
-      border: 1px solid rgba(148,163,184,0.5);
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--text-muted);
-    }
-
-    .pill-accent {
-      background: var(--accent-soft);
-      color: #e9d5ff;
-      border-color: rgba(168,85,247,0.7);
-    }
-
-    .pill-soft {
-      background: rgba(15,23,42,0.9);
-    }
-
     .eyebrow {
-      font-size: 0.8rem;
-      letter-spacing: 0.14em;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.4rem;
     }
 
     /* HERO */
 
     .hero {
       position: relative;
-      padding: 4.25rem 1.25rem 3.5rem;
+      padding: 4rem 1.25rem 3rem;
+      color: #fef3c7;
       overflow: hidden;
     }
 
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("img/wallpapers/fons%20de%20pantalla%20dnd.jpg");
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.6);
+      transform: scale(1.03);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.05), rgba(15,23,42,0.88));
+    }
+
     .hero-inner {
+      position: relative;
       max-width: var(--max-width);
       margin: 0 auto;
       display: grid;
-      gap: 2.5rem;
+      gap: 2rem;
+      z-index: 1;
     }
 
     @media (min-width: 900px) {
       .hero-inner {
-        grid-template-columns: 1.2fr 1fr;
+        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
         align-items: center;
       }
     }
@@ -283,28 +228,35 @@
     .hero-badge-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-bottom: 1.2rem;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 0.75rem;
+    }
+
+    .hero-badge {
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(254, 243, 199, 0.6);
+      background: rgba(15, 23, 42, 0.5);
     }
 
     .hero-title {
-      font-size: clamp(2.35rem, 3.2vw + 1.6rem, 3.3rem);
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: clamp(2.2rem, 3vw + 1.5rem, 3.1rem);
       line-height: 1.1;
       margin: 0 0 1rem;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.8);
     }
 
     .hero-title span {
-      background: linear-gradient(120deg, #e5e7eb 0%, #f9fafb 30%, #a5b4fc 50%, #f97316 70%, #22c55e 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: #facc6b;
     }
 
     .hero-lead {
       max-width: 32rem;
-      color: var(--text-muted);
       font-size: 0.98rem;
       line-height: 1.7;
+      color: #fdf6d9;
       margin-bottom: 1.4rem;
     }
 
@@ -312,209 +264,100 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.8rem;
-      align-items: center;
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.3rem;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
       gap: 0.4rem;
-      padding: 0.6rem 1.2rem;
-      font-size: 0.9rem;
+      padding: 0.55rem 1.2rem;
       border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.8);
-      background: rgba(15,23,42,0.95);
-      color: #e5e7eb;
+      border: 1px solid rgba(254, 243, 199, 0.6);
+      background: rgba(15, 23, 42, 0.75);
+      color: #fef3c7;
+      font-size: 0.9rem;
       cursor: pointer;
-      transition: all 0.18s ease-out;
+      transition: all 0.16s ease-out;
     }
 
-    .btn span.icon {
-      font-size: 1.1rem;
-    }
+    .btn span.icon { font-size: 1.1rem; }
 
     .btn-primary {
-      background: radial-gradient(circle at top left, #a855f7, #6366f1);
-      border-color: rgba(191,219,254,0.7);
-      box-shadow: 0 14px 40px rgba(79, 70, 229, 0.9);
+      background: linear-gradient(to right, #b91c1c, #c25d3f);
+      border-color: #facc6b;
+      box-shadow: 0 10px 28px rgba(185, 28, 28, 0.85);
       font-weight: 600;
     }
 
     .btn-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 18px 55px rgba(79, 70, 229, 1);
+      box-shadow: 0 14px 36px rgba(185, 28, 28, 1);
     }
 
     .btn-ghost:hover {
-      background: radial-gradient(circle at top, rgba(148,163,184,0.18), transparent 65%);
-      border-color: rgba(148,163,184,0.9);
+      background: rgba(15, 23, 42, 0.95);
     }
 
     .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
       font-size: 0.8rem;
-      color: var(--text-muted);
+      color: #fcd9b6;
     }
 
-    .hero-map {
-      position: relative;
-      border-radius: 1.5rem;
-      overflow: hidden;
-      border: 1px solid rgba(148,163,184,0.3);
+    .hero-crest {
+      background: radial-gradient(circle at top, rgba(248, 250, 252, 0.6), rgba(243, 232, 211, 0.98));
+      border-radius: var(--radius-lg);
+      border: 2px solid #e5d5b1;
       box-shadow: var(--shadow-soft);
-      background: radial-gradient(circle at top left, rgba(56,189,248,0.25), rgba(15,23,42,1));
+      padding: 1.1rem 1rem 1.3rem;
     }
 
-    .hero-map-img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      mix-blend-mode: lighten;
-      opacity: 0.85;
-      transform: scale(1.02);
-    }
-
-    .hero-map-overlay {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top, rgba(15,23,42,0.15), rgba(15,23,42,0.92));
-    }
-
-    .hero-map-top {
-      position: absolute;
-      inset: 0;
-      padding: 1.2rem 1.1rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      pointer-events: none;
-    }
-
-    .hero-map-pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .hero-map-tag {
-      padding: 0.15rem 0.5rem;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.8);
-      backdrop-filter: blur(14px);
-      background: radial-gradient(circle at top, rgba(15,23,42,0.9), rgba(15,23,42,0.65));
-      font-size: 0.72rem;
+    .hero-crest-title {
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1.05rem;
       text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: #e5e7eb;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.4rem;
+      color: #3b2716;
     }
 
-    .hero-map-footer {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      align-items: center;
-      font-size: 0.75rem;
+    .hero-crest-text {
+      font-size: 0.88rem;
       color: var(--text-muted);
+      line-height: 1.6;
     }
 
-    .hero-map-badge {
-      padding: 0.25rem 0.7rem;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.9);
-      border: 1px solid rgba(55,65,81,0.9);
-      color: #e5e7eb;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
+    /* GRID UTIL */
 
-    .hero-map-badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 10px rgba(34,197,94,1);
-    }
-
-    /* WORLD + FORGE SECTION */
-
-    .world-grid {
+    .grid {
       display: grid;
-      gap: 1.7rem;
+      gap: 1.5rem;
     }
 
     @media (min-width: 900px) {
-      .world-grid {
-        grid-template-columns: 1.3fr 1.1fr;
+      .grid-2 {
+        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
         align-items: start;
       }
     }
 
-    .world-list {
-      list-style: none;
-      padding: 0;
-      margin: 0.75rem 0 0;
-      display: grid;
-      gap: 0.65rem;
-      font-size: 0.9rem;
-      color: var(--text-muted);
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-soft);
+      padding: 1.4rem 1.3rem 1.3rem;
     }
 
-    .world-list li {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .world-bullet {
-      margin-top: 0.2rem;
-      font-size: 0.8rem;
-      color: #a855f7;
-    }
-
-    .chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      margin-top: 0.6rem;
-    }
-
-    .chip {
-      padding: 0.22rem 0.6rem;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.55);
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--text-muted);
-      background: rgba(15,23,42,0.95);
-    }
-
-    .chip-ghost {
-      border-style: dashed;
-      opacity: 0.8;
-    }
-
-    /* CONFLICTS / COLUMNS */
-
-    .columns-3 {
-      display: grid;
-      gap: 1.25rem;
-    }
-
-    @media (min-width: 900px) {
-      .columns-3 {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
+    .card-soft {
+      background: var(--bg-card-soft);
     }
 
     .card-title {
-      font-size: 1rem;
-      margin: 0 0 0.5rem;
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1.1rem;
+      margin: 0 0 0.4rem;
+      color: #3b2716;
     }
 
     .card-body {
@@ -523,11 +366,21 @@
       line-height: 1.6;
     }
 
-    /* HEROES SECTION */
+    .quote {
+      margin-top: 0.9rem;
+      padding-left: 0.85rem;
+      border-left: 3px solid #c25d3f;
+      font-size: 0.86rem;
+      color: #7a5a37;
+      font-style: italic;
+    }
+
+    /* HEROIS (PJs) */
 
     .heroes-grid {
       display: grid;
       gap: 1rem;
+      margin-top: 1.4rem;
     }
 
     @media (min-width: 768px) {
@@ -537,149 +390,108 @@
     }
 
     .hero-card {
-      background: radial-gradient(circle at top, rgba(15,23,42,0.9), rgba(15,23,42,1));
-      border-radius: 1rem;
-      border: 1px solid rgba(31,41,55,0.95);
-      padding: 1.1rem 1rem;
-      box-shadow: 0 14px 36px rgba(0,0,0,0.7);
+      background: #f9f1e0;
+      border-radius: 0.9rem;
+      border: 1px solid #d8c29f;
+      padding: 1rem 0.85rem;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.35);
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.35rem;
+      font-size: 0.86rem;
     }
 
     .hero-card-label {
       font-size: 0.72rem;
-      text-transform: uppercase;
       letter-spacing: 0.16em;
-      color: var(--text-muted);
+      text-transform: uppercase;
+      color: #a16235;
     }
 
     .hero-card-name {
+      font-family: "Georgia", "Times New Roman", serif;
       font-size: 0.98rem;
       font-weight: 600;
     }
 
     .hero-card-meta {
-      font-size: 0.8rem;
       color: var(--text-muted);
     }
 
     .hero-card-note {
-      font-size: 0.82rem;
       color: var(--text-muted);
+      margin-top: 0.15rem;
     }
 
-    /* TIMELINE */
-
-    .timeline {
-      margin-top: 1.5rem;
-      border-left: 1px solid rgba(55,65,81,1);
-      padding-left: 1.25rem;
-      display: grid;
-      gap: 1.3rem;
-    }
-
-    .timeline-item {
-      position: relative;
-    }
-
-    .timeline-dot {
-      position: absolute;
-      left: -1.5rem;
-      top: 0.15rem;
-      width: 9px;
-      height: 9px;
-      border-radius: 999px;
-      background: #a855f7;
-      box-shadow: 0 0 16px rgba(168,85,247,1);
-    }
-
-    .timeline-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin-bottom: 0.15rem;
-    }
-
-    .timeline-meta {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-bottom: 0.2rem;
-    }
-
-    .timeline-text {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    .goals-list {
-      list-style: none;
-      padding: 0;
-      margin: 0.8rem 0 0;
-      display: grid;
-      gap: 0.5rem;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    .goals-list li {
-      display: flex;
-      gap: 0.55rem;
-      align-items: flex-start;
-    }
-
-    .goal-box {
-      width: 14px;
-      height: 14px;
-      border-radius: 4px;
-      border: 1px solid rgba(148,163,184,0.9);
-      margin-top: 0.1rem;
-    }
-
-    /* HOW TO USE SECTION */
+    /* ENTRADES RÀPIDES */
 
     .portal-grid {
       display: grid;
       gap: 1rem;
+      margin-top: 1.4rem;
     }
 
     @media (min-width: 768px) {
       .portal-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
 
     .portal-card {
-      background: radial-gradient(circle at top, rgba(15,23,42,0.92), rgba(15,23,42,1));
-      border-radius: 1rem;
-      border: 1px solid rgba(31,41,55,0.95);
-      padding: 1rem 0.9rem;
-      font-size: 0.85rem;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      padding: 1rem 0.95rem;
+      font-size: 0.88rem;
       color: var(--text-muted);
+      box-shadow: var(--shadow-soft);
       display: flex;
       flex-direction: column;
       gap: 0.4rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-    }
-
-    .portal-icon {
-      font-size: 1.35rem;
     }
 
     .portal-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text-main);
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1rem;
+      color: #3b2716;
+    }
+
+    .portal-icon {
+      font-size: 1.3rem;
+    }
+
+    .tag-link {
+      margin-top: 0.25rem;
+      font-size: 0.8rem;
+      color: #8b2e2e;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    /* IMATGE FORJA */
+
+    .forge-image {
+      border-radius: 0.9rem;
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .forge-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     /* FOOTER */
 
     .site-footer {
-      border-top: 1px solid rgba(31,41,55,0.9);
-      background: radial-gradient(circle at top, #020617, #000);
-      padding: 1.4rem 1.25rem 1.8rem;
+      border-top: 2px solid #4b2f1b;
+      background: #130c07;
+      padding: 1.2rem 1.25rem 1.5rem;
+      color: #cbd5f5;
       font-size: 0.8rem;
-      color: var(--text-muted);
     }
 
     .footer-inner {
@@ -687,9 +499,12 @@
       margin: 0 auto;
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
+      gap: 0.6rem;
       justify-content: space-between;
-      align-items: center;
+    }
+
+    @media (max-width: 720px) {
+      .footer-inner { flex-direction: column; }
     }
   </style>
 </head>
@@ -698,10 +513,10 @@
     <header class="site-header">
       <div class="header-inner">
         <a href="index.html" class="brand">
-          <div class="brand-logo" aria-hidden="true"></div>
+          <div class="brand-seal" aria-hidden="true"></div>
           <div>
-            <div class="brand-text-title">Els Ecos d’Elyssia</div>
-            <div class="brand-text-sub">Campanya D&D · Midland Counties</div>
+            <div class="brand-title">Els Ecos d’Elyssia</div>
+            <div class="brand-sub">Campanya de Dungeons & Dragons</div>
           </div>
         </a>
         <nav class="nav">
@@ -718,368 +533,182 @@
         <div class="hero-inner">
           <div>
             <div class="hero-badge-row">
-              <span class="tag pill-accent">Campanya basada en “La Mina Perduda de Phandelver”</span>
-              <span class="tag pill-soft">Sistema: D&D 5a edició</span>
+              <span class="hero-badge">Basada en “La Mina Perduda de Phandelver”</span>
+              <span class="hero-badge">Sistema: D&D 5a edició</span>
             </div>
             <h1 class="hero-title">
               Una mina perduda, una forja ancestral<br>
-              i uns ecos que sacsegen <span>Elyssia</span>.
+              i uns ecos que ressonen per <span>Elyssia</span>.
             </h1>
             <p class="hero-lead">
-              Un encàrrec senzill d’escorta des de la ciutat costanera de Lelis us ha arrossegat
-              al cor de <strong>Midland Counties</strong>: goblins emboscant camins, una vila
-              controlada per la Marca Roja i rumors d’una <strong>Forja de les Spells</strong>
-              capaç de despertar poders oblidats.
+              Un encàrrec senzill d’escorta des de la ciutat de Lelis us ha portat fins a les
+              fronteres salvatges de Midland. Goblins a les carreteres, bandits a Phandalin i un
+              nom murmurat entre ombres: <strong>l’Aranya Negra</strong>.
             </p>
             <div class="hero-actions">
               <a href="diari-de-campanya.html" class="btn btn-primary">
                 <span class="icon">▶</span>
-                <span>Continuar la història</span>
+                <span>Entrar a la història</span>
               </a>
               <a href="mapes-i-localitzacions.html" class="btn btn-ghost">
                 <span class="icon">🗺️</span>
-                <span>Explorar el món</span>
+                <span>Veure el territori</span>
               </a>
             </div>
             <div class="hero-meta">
-              <span>Estat dels PJ: Nivell 3 (camí a 4) · Herois locals</span>
-              <span>Regió actual: Phandalin i entorn</span>
+              Campanya en curs · Herois locals intentant evitar que la mina torni a despertar alguna cosa
+              que el món no està preparat per contenir.
             </div>
           </div>
 
-          <div class="hero-map card-soft">
-            <img
-              src="img/maps/1.%20MAPA%20DEFINITIU%20-%20ELYSSIA.png"
-              alt="Mapa d’Elyssia i regions conegudes"
-              class="hero-map-img"
-            >
-            <div class="hero-map-overlay" aria-hidden="true"></div>
-            <div class="hero-map-top">
-              <div class="hero-map-pill-row">
-                <span class="hero-map-tag">Elyssia · Pla Material</span>
-                <span class="hero-map-tag">Midland Counties</span>
-              </div>
-              <div class="hero-map-footer">
-                <span class="hero-map-badge">
-                  <span class="hero-map-badge-dot"></span>
-                  <span>Localització actual del grup</span>
-                </span>
-                <span>Ports de Lelis · Carretera cap a Phandalin · Ruïnes d’Arboltrueno · Castell Bocapeñasco</span>
-              </div>
-            </div>
-          </div>
+          <aside class="hero-crest">
+            <div class="hero-crest-title">Crònica breu</div>
+            <p class="hero-crest-text">
+              Fa segles, nans i gnoms van signar el <strong>Pacte de Phandelver</strong> per
+              compartir una mina plena de gemmes i energia màgica. Amb l’ajuda de mags humans van
+              construir la <strong>Forja de les Spells</strong>, capaç de transformar la força
+              dels plans en objectes meravellosos.
+            </p>
+            <p class="hero-crest-text">
+              La guerra i la màgia desbocada ho van destruir tot i la cova va desaparèixer de la
+              memòria del món. Fins ara. Els germans Buscarroques han trobat de nou l’entrada… i
+              algú més també l’està buscant.
+            </p>
+          </aside>
         </div>
       </section>
 
-      <!-- EL MÓN D’ELYSSIA + FORJA -->
+      <!-- FORJA I MINA PERDUDA -->
       <section class="section">
-        <div class="section-inner world-grid">
+        <div class="section-inner grid grid-2">
           <div>
-            <div class="section-kicker">Cosmologia i màgia</div>
-            <h2 class="section-title">El món d’Elyssia</h2>
+            <div class="eyebrow">La llegenda al centre de la campanya</div>
+            <h2 class="section-title">La Forja de les Spells i la mina oblidada</h2>
             <p class="section-lead">
-              Elyssia és un món on la màgia brolla dels Plans Elementals i s’escola cap al Pla Material,
-              reflectida en versions extremes de llum i ombra com el <strong>Feywild</strong> i el
-              <strong>Shadowfell</strong>. La vida quotidiana conviu amb dracs, esperits i cultes que
-              volen controlar aquesta energia.
+              Al cor de la Cova de l’Ona Echo, la Forja de les Spells canalitza una corrent
+              de màgia primigènia. Durant dècades va ser el secret millor guardat d’artesans
+              nans i gnoms, fins que la cobdícia d’orcs i conjuradors corruptes va provocar
+              una batalla que gairebé va esfondrar la mina sencera.
             </p>
-            <ul class="world-list">
-              <li>
-                <span class="world-bullet">✦</span>
-                <span><strong>Plans reflectits:</strong> Feywild (somni i natura desbordada) i Shadowfell
-                  (decadència i ombra persistent).</span>
-              </li>
-              <li>
-                <span class="world-bullet">✦</span>
-                <span><strong>Ithiral:</strong> pla de les ànimes, destí final dels mortals i escenari de
-                  profecies sobre la Forja.</span>
-              </li>
-              <li>
-                <span class="world-bullet">✦</span>
-                <span><strong>Imperi sense nom:</strong> governa continents com Efri i Orgon des de fa
-                  mil·lennis, amb un Emperador que ningú ha vist envellir.</span>
-              </li>
-            </ul>
-            <div class="chip-row">
-              <span class="chip">Abjuració</span>
-              <span class="chip">Adivinació</span>
-              <span class="chip">Conjuració</span>
-              <span class="chip chip-ghost">… i altres escoles de màgia regulant el caos</span>
+            <div class="card card-soft" style="margin-top: 1.1rem;">
+              <h3 class="card-title">El que se sap ara mateix</h3>
+              <p class="card-body">
+                Els germans Buscarroques han redescobert l’entrada i preparaven una expedició
+                quan han estat atacats. Gundren ha desaparegut, el seu mapa també, i bandes
+                com la <strong>Marca Roja</strong> i tribus goblins s’estan movent d’una manera
+                massa coordinada per ser simple casualitat.
+              </p>
+              <p class="card-body">
+                Entre els rumors es repeteix un nom: <strong>l’Aranya Negra</strong>, algú
+                disposat a usar bandits, monstres i màgia prohibida per controlar la Forja
+                abans que ningú més hi arribi.
+              </p>
+              <p class="quote">
+                “No totes les mines busquen or. Algunes amaguen coses que ni els déus volen
+                tornar a veure en aquest món.”
+              </p>
             </div>
           </div>
 
-          <div class="card">
-            <div class="eyebrow">Forja i Mina Perduda</div>
-            <h3 class="card-title">La Forja de les Spells i la Cova de l’Ona Echo</h3>
-            <p class="card-body">
-              Fa segles, clans de nans i gnoms van signar el <strong>Pacte de Phandelver</strong> per compartir
-              una mina rica en minerals i en energia màgica. Amb l’ajuda de mags humans, van construir la
-              <strong>Forja de les Spells</strong>, capaç de canalitzar i encadenar aquesta força per crear
-              artefactes únics.
-            </p>
-            <p class="card-body">
-              Una ofensiva d’orcs i conjuradors foscos va devastar la mina, i la seva ubicació es va perdre.
-              Ara, els germans Buscarroques han redescobert l’entrada… i no són els únics que la busquen.
-              Una figura coneguda només com <strong>l’Aranya Negra</strong> mou fils entre goblins, bandits
-              i cultes ocults.
-            </p>
+          <div class="forge-image">
+            <img
+              src="img/wallpapers/echo%20cave.jpg"
+              alt="Entrada a una cova il·luminada per llums màgiques, recordant la Cova de l’Ona Echo"
+            >
           </div>
         </div>
       </section>
 
-      <!-- MIDLAND + LELIS -->
-      <section class="section tight">
-        <div class="section-inner world-grid">
-          <div class="card">
-            <div class="eyebrow">Regió de campanya</div>
-            <h2 class="section-title">Midland Counties</h2>
-            <p class="section-lead">
-              Una regió de l’Imperi on el comerç, la política i la fe enfronten interessos creuats. Carreteres
-              plenes de mercaders, milícies locals i ordres militars intenten mantenir un ordre que s’esquerda.
-            </p>
-            <ul class="world-list">
-              <li>
-                <span class="world-bullet">◆</span>
-                <span><strong>Govern:</strong> un Virrei nomenat per l’Emperador i quatre Grans Lords que
-                  representen poder polític, financer i militar.</span>
-              </li>
-              <li>
-                <span class="world-bullet">◆</span>
-                <span><strong>Poder armat:</strong> l’Orden del Guantelete, la guàrdia del Virrei, soldats
-                  de ciutat i milícies de pobles fronterers.</span>
-              </li>
-              <li>
-                <span class="world-bullet">◆</span>
-                <span><strong>Economia:</strong> exporten fusta i gemmes, importen pergamins, artefactes
-                  i tecnologia màgica de l’Imperi.</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <div class="eyebrow">Punt de partida</div>
-            <h3 class="card-title">Lelis, la ciutat del mar obert</h3>
-            <p class="card-body">
-              Lelis és una ciutat costanera de façanes blanques i teulades verdes i blaves, banyada per
-              capvespres taronges i violetes. La deessa del mar rep ofrenes diàries als molls, mentre
-              joglars i mariners omplen les tavernes d’històries sobre ruïnes llunyanes i pactes perillosos.
-            </p>
-            <p class="card-body">
-              És aquí on Gundren Buscarroques us va contractar per escortar un carro de subministraments
-              cap a <strong>Phandalin</strong>. Des d’aleshores, tot s’ha anat complicant.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- CONFLICTES ACTUALS -->
-      <section class="section">
+      <!-- HEROIS (PJs) -->
+      <section class="section" style="padding-top: 2.2rem;">
         <div class="section-inner">
-          <div class="section-kicker">Tensió a la regió</div>
-          <h2 class="section-title">Conflictes que brollen a l’ombra</h2>
-          <p class="section-lead">
-            La situació a Midland Counties és tot menys estable. La mina perduda és només el centre
-            d’un conjunt de forces que es preparen per xocar: bandits, faccions, dracs i culte aràcnid.
-          </p>
-
-          <div class="columns-3" style="margin-top: 1.6rem;">
-            <article class="card">
-              <h3 class="card-title">Phandalin sota la Marca Roja</h3>
-              <p class="card-body">
-                Una banda de criminals ha convertit Phandalin en la seva joguina. Intimidacions, desaparicions
-                i soborns han deixat la vila sota el seu control efectiu. La caiguda de la seva base a la
-                Mansió Thendar ha estat el primer cop seriós contra ells.
-              </p>
-            </article>
-
-            <article class="card">
-              <h3 class="card-title">Màgia inestable i ecos dels Plans</h3>
-              <p class="card-body">
-                Rituals desconeguts i l’activació gradual de la Forja estan debilitant les fronteres entre
-                Elyssia i el Shadowfell. Somnis estranys, objectes que ressonen amb energia i ruïnes com
-                <strong>Arboltrueno</strong> actuen com a focus d’aquesta inestabilitat.
-              </p>
-            </article>
-
-            <article class="card">
-              <h3 class="card-title">L’Aranya Negra</h3>
-              <p class="card-body">
-                Ningú sap qui s’amaga darrere aquest nom, però tot apunta a una figura que controla goblins,
-                bandits i intermediaris des de la foscor. El seu objectiu sembla clar: trobar i dominar la
-                Cova de l’Ona Echo abans que ho facin els germans Buscarroques.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- HEROIS -->
-      <section class="section tight">
-        <div class="section-inner">
-          <div class="section-kicker">Protagonistes</div>
+          <div class="eyebrow">Els protagonistes</div>
           <h2 class="section-title">Els herois que han respost a la crida</h2>
           <p class="section-lead">
-            Aquí hi podeu afegir els personatges jugadors (PJ): una mirada ràpida a qui són, d’on venen
-            i quina marca volen deixar sobre Elyssia. Ara mateix és un espai editable perquè el pugueu
-            omplir amb el vostre grup.
+            Aquí hi podeu afegir els personatges del grup: qui són, quina marca volen deixar
+            sobre Elyssia i per què no podien ignorar la crida de Gundren Buscarroques.
           </p>
 
-          <div class="heroes-grid" style="margin-top: 1.5rem;">
+          <div class="heroes-grid">
             <article class="hero-card">
-              <div class="hero-card-label">PJ 1</div>
+              <div class="hero-card-label">Personatge jugador 1</div>
               <div class="hero-card-name">Nom del personatge</div>
               <div class="hero-card-meta">Raça · Classe · Origen</div>
               <p class="hero-card-note">
-                Breu descripció del personatge, motivacions principals i algun tret distintiu.
+                Breu descripció, motivació principal i algun tret distintiu que el faci únic
+                a la taula.
               </p>
             </article>
             <article class="hero-card">
-              <div class="hero-card-label">PJ 2</div>
+              <div class="hero-card-label">Personatge jugador 2</div>
               <div class="hero-card-name">Nom del personatge</div>
               <div class="hero-card-meta">Raça · Classe · Origen</div>
               <p class="hero-card-note">
-                Afegiu aquí el vostre segon heroi o heroïna: com ha acabat embolicat en aquesta història?
+                Pots fer servir aquest espai per recordar vincles amb Phandalin, Lelis o els
+                germans Buscarroques.
               </p>
             </article>
             <article class="hero-card">
-              <div class="hero-card-label">PJ 3</div>
+              <div class="hero-card-label">Personatge jugador 3</div>
               <div class="hero-card-name">Nom del personatge</div>
               <div class="hero-card-meta">Raça · Classe · Origen</div>
               <p class="hero-card-note">
-                Pots usar aquest espai per recordar algun vincle amb Gundren, Lelis o Midland Counties.
+                També és útil per fixar ideals, pors o secrets que el DM pugui fer servir
+                més endavant.
               </p>
             </article>
             <article class="hero-card">
-              <div class="hero-card-label">PJ 4</div>
+              <div class="hero-card-label">Personatge jugador 4</div>
               <div class="hero-card-name">Nom del personatge</div>
               <div class="hero-card-meta">Raça · Classe · Origen</div>
               <p class="hero-card-note">
-                Si hi ha més jugadors, podeu afegir noves targetes clonant aquesta estructura.
+                Si hi ha més jugadors, només cal copiar aquesta targeta i afegir-ne tantes
+                com calgui.
               </p>
             </article>
           </div>
         </div>
       </section>
 
-      <!-- ON SOM ARA / TIMELINE -->
-      <section class="section">
+      <!-- ACCÉS RÀPID A ALTRES SECCIONS -->
+      <section class="section" style="padding-top: 1.5rem; padding-bottom: 2.5rem;">
         <div class="section-inner">
-          <div class="section-kicker">Estat actual de la història</div>
-          <h2 class="section-title">On es troba ara el grup</h2>
-          <div class="world-grid" style="margin-top: 1.2rem;">
-            <div>
-              <div class="timeline">
-                <div class="timeline-item">
-                  <div class="timeline-dot"></div>
-                  <div class="timeline-title">Emboscada i Cova dels Bocapeñasco</div>
-                  <div class="timeline-meta">Sessions 1–2</div>
-                  <p class="timeline-text">
-                    El carro d’escorta cap a Phandalin és atacat per goblins. Descobriu les restes
-                    dels cavalls de Gundren i Sidlar, seguiu el rastre fins a la cova i confirmeu que
-                    Gundren ha estat capturat i traslladat.
-                  </p>
-                </div>
-                <div class="timeline-item">
-                  <div class="timeline-dot"></div>
-                  <div class="timeline-title">La caiguda de la Mansió Thendar</div>
-                  <div class="timeline-meta">Sessions 3–4</div>
-                  <p class="timeline-text">
-                    La Marca Roja és desmantellada a Phandalin. La infiltració a la Mansió Thendar
-                    revela el paper clau d’Iarno “Vara de Cristal” i la seva vinculació amb l’Aranya
-                    Negra, tot i que escapa amb un Rubí Màgic.
-                  </p>
-                </div>
-                <div class="timeline-item">
-                  <div class="timeline-dot"></div>
-                  <div class="timeline-title">Arboltrueno i el pacte amb Venomfang</div>
-                  <div class="timeline-meta">Sessió 5</div>
-                  <p class="timeline-text">
-                    A les ruïnes d’Arboltrueno, el grup es troba amb el drac verd Venomfang. El
-                    pacte és tens però útil: ell vol influència i territori, vosaltres, arribar sans i
-                    estalvis al Castell Bocapeñasco i rescatar Gundren.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="card">
-              <div class="eyebrow">Objectius immediats dels PJ</div>
-              <p class="section-lead">
-                El següent pas de la campanya gira al voltant de Phandalin, les seves rutes i el
-                castell goblinoide on retenen el vostre patró nan.
-              </p>
-              <ul class="goals-list">
-                <li>
-                  <span class="goal-box"></span>
-                  <span>Assaltar <strong>Castell Bocapeñasco</strong> i rescatar Gundren Buscarroques.</span>
-                </li>
-                <li>
-                  <span class="goal-box"></span>
-                  <span>Interrogar l’ajudant tiefling d’Iarno sobre el Rubí Màgic i els plans de la Marca Roja.</span>
-                </li>
-                <li>
-                  <span class="goal-box"></span>
-                  <span>Investigar les anomalies màgiques a l’entorn de Phandalin i Arboltrueno.</span>
-                </li>
-                <li>
-                  <span class="goal-box"></span>
-                  <span>Seguir les pistes que apunten a la identitat i els objectius de l’Aranya Negra.</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- COM UTILITZAR LA WEB -->
-      <section class="section tight">
-        <div class="section-inner">
-          <div class="section-kicker">Eina de taula</div>
-          <h2 class="section-title">Com utilitzar aquesta web durant la partida</h2>
+          <div class="eyebrow">Per on seguir</div>
+          <h2 class="section-title">Portes d’entrada al vostre món</h2>
           <p class="section-lead">
-            L’objectiu d’aquest espai és que ningú es perdi en la història. Cada secció està pensada
-            per consultar-la ràpidament mentre jugueu o per refrescar el que ha passat entre sessions.
+            Utilitzeu aquestes seccions per no perdre el fil entre sessions: mapes per situar-vos,
+            personatges per recordar qui és qui i un diari per repassar què ha passat.
           </p>
 
-          <div class="portal-grid" style="margin-top: 1.6rem;">
+          <div class="portal-grid">
             <article class="portal-card">
               <div class="portal-icon">🗺️</div>
               <div class="portal-title">Mapes i Localitzacions</div>
               <p>
-                Consulta el mapa general d’Elyssia, la regió de Midland i els llocs clau de la campanya:
-                Lelis, Phandalin, Cova dels Bocapeñasco, Mansió Thendar, Arboltrueno i Castell Bocapeñasco.
+                La regió de Midland, la costa de l’espasa, Phandalin i tots els escenaris de
+                la campanya en un sol lloc.
               </p>
-              <a href="mapes-i-localitzacions.html" class="tag pill-soft">Obrir mapes</a>
+              <a href="mapes-i-localitzacions.html" class="tag-link">Anar als mapes →</a>
             </article>
 
             <article class="portal-card">
-              <div class="portal-icon">🧑‍🤝‍🧑</div>
+              <div class="portal-icon">🧙‍♂️</div>
               <div class="portal-title">NPCs i Faccions</div>
               <p>
-                Repassa qui és qui: aliats, antagonistes i faccions com els Arpistes, l’Orden del
-                Guantelete, l’Aliança de Lords, la Marca Roja i el culte de l’Aranya Negra.
+                Gundren, Sidlar, la Marca Roja, l’Orden del Guantelete i la resta de peces
+                d’aquest tauler.
               </p>
-              <a href="npcs-i-faccions.html" class="tag pill-soft">Veure directori</a>
+              <a href="npcs-i-faccions.html" class="tag-link">Veure personatges →</a>
             </article>
 
             <article class="portal-card">
               <div class="portal-icon">📜</div>
               <div class="portal-title">Diari de Campanya</div>
               <p>
-                Línia de temps amb totes les sessions, decisions importants, recompenses i fils oberts.
-                Ideal per posar-se al dia abans de jugar.
+                Resums de cada sessió, decisions clau i objectius oberts. Perfecte per llegir
+                abans de tirar la primera tirada de la nit.
               </p>
-              <a href="diari-de-campanya.html" class="tag pill-soft">Llegir diari</a>
-            </article>
-
-            <article class="portal-card">
-              <div class="portal-icon">🎲</div>
-              <div class="portal-title">Espai viu</div>
-              <p>
-                A mesura que la campanya avanci, podeu ampliar aquesta web amb noves localitzacions,
-                nous NPCs i seccions especials (regles de la casa, inventari compartit, etc.).
-              </p>
-              <span class="tag pill-soft">Editable pel DM</span>
+              <a href="diari-de-campanya.html" class="tag-link">Obrir el diari →</a>
             </article>
           </div>
         </div>
@@ -1088,8 +717,8 @@
 
     <footer class="site-footer">
       <div class="footer-inner">
-        <span>Els Ecos d’Elyssia · Campanya D&D 5a · Adaptació de “La Mina Perduda de Phandelver”.</span>
-        <span>Frontend bàsic en HTML/CSS · Pàgina d’inici</span>
+        <span>Els Ecos d’Elyssia · Campanya de Dungeons & Dragons 5a edició.</span>
+        <span>Adaptació lliure de “La Mina Perduda de Phandelver”.</span>
       </div>
     </footer>
   </div>
