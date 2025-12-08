@@ -256,7 +256,7 @@
       max-width: 32rem;
       font-size: 0.98rem;
       line-height: 1.7;
-      color: #fdf6d9;
+      color: #fff7e6; /* més clar per sobre fons fosc */
       margin-bottom: 1.4rem;
     }
 
@@ -301,7 +301,7 @@
 
     .hero-meta {
       font-size: 0.8rem;
-      color: #fcd9b6;
+      color: #ffedd5; /* més clar per llegibilitat */
     }
 
     .hero-crest {
@@ -337,7 +337,7 @@
     @media (min-width: 900px) {
       .grid-2 {
         grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
-        align-items: start;
+        align-items: stretch; /* estirem les dues columnes */
       }
     }
 
@@ -476,12 +476,13 @@
       overflow: hidden;
       border: 1px solid var(--border-light);
       box-shadow: var(--shadow-soft);
+      height: 100%;
     }
 
     .forge-image img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: cover; /* retalla pels costats si cal */
     }
 
     /* FOOTER */
@@ -612,8 +613,8 @@
 
           <div class="forge-image">
             <img
-              src="img/wallpapers/echo%20cave.jpg"
-              alt="Entrada a una cova il·luminada per llums màgiques, recordant la Cova de l’Ona Echo"
+              src="img/wallpapers/pic-Mine-Entrance.jpg"
+              alt="Entrada a una mina antiga, il·luminada per una llum tènue, recordant la Cova de l’Ona Echo"
             >
           </div>
         </div>
