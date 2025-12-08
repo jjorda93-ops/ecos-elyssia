@@ -41,7 +41,7 @@
       flex-direction: column;
     }
 
-    /* HEADER (mateix que index, però amb el link actiu als mapes) */
+    /* HEADER (mateix estil que a index) */
 
     .site-header {
       position: sticky;
@@ -225,6 +225,8 @@
       border: 1px solid var(--border-light);
       box-shadow: var(--shadow-soft);
       background: #000;
+      cursor: zoom-in;
+      position: relative;
     }
 
     .map-frame img {
@@ -233,32 +235,16 @@
       object-fit: cover;
     }
 
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      padding: 0.15rem 0.55rem;
+    .map-hint {
+      position: absolute;
+      right: 0.6rem;
+      bottom: 0.5rem;
+      font-size: 0.75rem;
+      color: #fef3c7;
+      background: rgba(0, 0, 0, 0.55);
+      padding: 0.15rem 0.45rem;
       border-radius: 999px;
-      font-size: 0.78rem;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: #fdf6e7;
-      color: var(--text-muted);
-      margin-right: 0.3rem;
-      margin-bottom: 0.25rem;
     }
-
-    .tag strong {
-      font-weight: 600;
-      color: #8b2e2e;
-    }
-
-    .map-meta {
-      margin-top: 0.65rem;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .map-meta strong { color: #8b2e2e; }
 
     .chips-row {
       display: flex;
@@ -276,7 +262,15 @@
       color: var(--text-muted);
     }
 
-    /* GALERIA ESCENARIS */
+    .map-meta {
+      margin-top: 0.65rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .map-meta strong { color: #8b2e2e; }
+
+    /* ESCENARIS D'AVENTURA */
 
     .scenes-grid {
       display: grid;
@@ -305,6 +299,8 @@
       border-bottom: 1px solid var(--border-light);
       max-height: 220px;
       overflow: hidden;
+      cursor: zoom-in;
+      position: relative;
     }
 
     .scene-image img {
@@ -356,6 +352,60 @@
     @media (max-width: 720px) {
       .footer-inner { flex-direction: column; }
     }
+
+    /* LIGHTBOX / ZOOM */
+
+    .lightbox-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .lightbox-backdrop.active {
+      display: flex;
+    }
+
+    .lightbox-content {
+      max-width: 95vw;
+      max-height: 95vh;
+      position: relative;
+    }
+
+    .lightbox-image {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      border-radius: 0.75rem;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.9);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -0.75rem;
+      right: -0.75rem;
+      background: #111827;
+      color: #f9fafb;
+      border-radius: 999px;
+      width: 32px;
+      height: 32px;
+      border: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .lightbox-caption {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: #e5e7eb;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -384,16 +434,16 @@
           <div class="eyebrow">Orientar-se a Elyssia</div>
           <h1 class="section-title">Mapes i Localitzacions</h1>
           <p class="section-lead">
-            Aquí teniu una vista d’ocell de la campanya: des dels continents d’Elyssia fins a la
-            petita vila fronterera de Phandalin i les ruïnes on us heu endinsat. Serveix tant
-            perquè els jugadors situïn la història com perquè el DM tingui tots els escenaris
-            clau agrupats en un sol lloc.
+            Aquí teniu una vista d’ocell de la campanya: des del món d’<strong>Elyssia</strong>
+            fins a la vila fronterera de <strong>Phandalin</strong> i els escenaris de joc de
+            les primeres sessions. Pots fer clic sobre qualsevol mapa per obrir-lo en gran,
+            ocupar gairebé tota la pantalla i poder-lo veure amb detall.
           </p>
           <div class="chips-row">
             <span class="chip">🌍 Mapa global del món</span>
-            <span class="chip">🏞️ Regió de Midland i costa</span>
+            <span class="chip">🏞️ Regió de Midland i Badia de Midland</span>
             <span class="chip">🏘️ Ciutats i pobles</span>
-            <span class="chip">⚔️ Zones d’aventura visitades i rumorades</span>
+            <span class="chip">⚔️ Escenaris de les sessions 1, 3–4 i 5</span>
           </div>
         </div>
       </section>
@@ -405,30 +455,32 @@
             <img
               src="img/maps/1.%20MAPA%20DEFINITIU%20-%20ELYSSIA.png"
               alt="Mapa general del món d’Elyssia amb continents i regions principals"
+              class="zoomable-map"
+              data-caption="Mapa general d’Elyssia: el món on tenen lloc els ecos de la vostra campanya."
             >
+            <div class="map-hint">Clica per ampliar</div>
           </div>
           <div>
             <div class="eyebrow">El món conegut</div>
             <h2 class="section-title">Elyssia i l’Imperi sense Nom</h2>
             <p class="section-lead">
               Elyssia és un món on la màgia i la naturalesa estan entrellaçades des de l’origen.
-              Dos grans continents, <strong>Efri</strong> i <strong>Orgon</strong>, concentren la
-              major part de civilitzacions humanoides, totes sota la llarga ombra d’un Imperi
-              que fa mil·lennis que perdura i un Emperador del qual ningú recorda l’inici.
+              Dos grans continents, <strong>Efri</strong> i <strong>Orgon</strong>, concentren
+              la major part de civilitzacions humanoides, sota la llarga ombra d’un Imperi
+              mil·lenari governat per un Emperador de nom oblidat.
             </p>
             <div class="card card-soft" style="margin-top: 1rem;">
               <h3 class="card-title">On sou dins d’aquest mapa?</h3>
               <div class="card-body">
                 <p>
-                  La vostra història transcorre a la <strong>regió de Midland Counties</strong>, una
-                  zona relativament allunyada del centre de poder imperial. Ports comercials,
-                  rutes de caravanes, boscos ancestrals i ruïnes oblidats són l’escenari ideal
-                  perquè aventurers anònims puguin convertir-se en llegenda.
+                  La vostra història actual se situa a la <strong>regió de Midland Counties</strong>,
+                  a l’extrem d’un dels continents, prou lluny del centre de poder imperial
+                  com perquè les coses s’hi puguin escapar del control… però prou a prop
+                  com perquè els seus ecos acabin arribant a les capitals.
                 </p>
                 <p class="map-meta">
-                  <strong>DM:</strong> aquest mapa serveix per donar escala èpica a la campanya.
-                  No cal revelar tots els noms de regions de cop; pots anar “fent zoom” a mesura
-                  que la història s’expandeix.
+                  <strong>DM:</strong> pots ensenyar aquest mapa com a “zoom màxim” del món, i
+                  després anar baixant escala cap a la regió de joc i la costa.
                 </p>
               </div>
             </div>
@@ -436,40 +488,46 @@
         </div>
       </section>
 
-      <!-- MIDLAND + COSTA -->
+      <!-- MIDLAND + BADIA DE MIDLAND -->
       <section class="section">
-        <div class="section-inner grid grid-2 flip">
-          <div>
-            <div class="eyebrow">Regió de joc</div>
-            <h2 class="section-title">Midland Counties i la Badia de Midland</h2>
-            <p class="section-lead">
-              Midland Counties està governada per un <strong>Virrei</strong> en nom de l’Imperi i
-              quatre Grans Lords que controlen política, finances i defensa. És una regió
-              rica en fusta, gemmes i comerç marítim, però també plena de carreteres
-              perilloses, bandits i cultes que s’alcen a l’ombra del poder imperial.
-            </p>
-            <div class="card" style="margin-top: 1rem;">
-              <h3 class="card-title">La costa i les rutes comercials</h3>
+        <div class="section-inner">
+          <div class="eyebrow">Regió de joc</div>
+          <h2 class="section-title">Midland Counties i la Badia de Midland</h2>
+          <p class="section-lead">
+            Midland Counties és la regió on es mou el vostre grup: boscos, turons, rutes
+            comercials i la <strong>Badia de Midland</strong>, amb ciutats portuàries com
+            <strong>Lelis</strong>. Aquest mapa recull la costa, els ports i els camins que
+            connecten amb l’interior.
+          </p>
+          <div class="grid" style="margin-top: 1.4rem;">
+            <div class="map-frame">
+              <img
+                src="img/maps/2.%20Costa%20de%20l'espasa.JPG"
+                alt="Mapa de la costa i la Badia de Midland amb ports i rutes principals"
+                class="zoomable-map"
+                data-caption="Regió de Midland Counties i Badia de Midland: ports, rutes i connexió amb l’interior."
+              >
+              <div class="map-hint">Clica per ampliar</div>
+            </div>
+            <div class="card" style="margin-top: 0.8rem;">
+              <h3 class="card-title">Com usar aquest mapa a la taula</h3>
               <div class="card-body">
                 <p>
-                  A la <strong>Badia de Midland</strong> s’alcen ciutats portuàries com Lelis, on
-                  arriben mercaders, mariners, aventurers i emisaris de faccions com
-                  l’Aliança dels Lores o l’Orden del Guantelete. Des d’aquí surten les
-                  caravanes que connecten el litoral amb l’interior fronterer.
+                  Des d’aquí surten les caravanes que connecten <strong>Lelis</strong> amb
+                  <strong>Phandalin</strong> i altres petits assentaments. És el mapa ideal per
+                  situar:
                 </p>
-                <div class="chips-row">
-                  <span class="chip">Virrei · Tropes d’elit de l’Imperi</span>
-                  <span class="chip">Rutes de recaptació i caravanes</span>
-                  <span class="chip">Tabernes i contractes de mercenaris</span>
-                </div>
+                <ul style="margin: 0.4rem 0 0.4rem 1.1rem; padding: 0; font-size: 0.9rem;">
+                  <li>El recorregut de l’escorta de Gundren.</li>
+                  <li>Les zones d’emboscades goblins a la Sessió 1.</li>
+                  <li>Els camins que porten cap a pobles abandonats com Arboltrueno.</li>
+                </ul>
+                <p class="map-meta">
+                  <strong>DM:</strong> pots dibuixar-hi manualment rutes, cercles de “zona d’interès”
+                  o fletxes amb el progrés del grup entre sessions.
+                </p>
               </div>
             </div>
-          </div>
-          <div class="map-frame">
-            <img
-              src="img/maps/2.%20Costa%20de%20l'espasa.JPG"
-              alt="Mapa de la costa amb ports i rutes principals de la regió"
-            >
           </div>
         </div>
       </section>
@@ -481,30 +539,30 @@
             <img
               src="img/maps/3.%20Lelis.JPG"
               alt="Mapa de la ciutat costanera de Lelis"
+              class="zoomable-map"
+              data-caption="Lelis: ciutat portuària on comença l’encàrrec d’escortar Gundren."
             >
+            <div class="map-hint">Clica per ampliar</div>
           </div>
           <div>
             <div class="eyebrow">Punt de partida</div>
             <h2 class="section-title">Lelis, ciutat de mar i promeses</h2>
             <p class="section-lead">
-              Lelis és una ciutat costanera plena de color, on el cel es fon amb el mar i cada
-              capvespre tenyeix els molls de taronges i violetes. És aquí on va començar tot:
-              una feina aparentment senzilla d’escorta per a Gundren Buscarroques.
+              Ciutat costanera plena de color, música i olor de sal. És el lloc on vau conèixer
+              <strong>Gundren Buscarroques</strong> i on va néixer l’encàrrec que us porta,
+              sense que ho sabéssiu, cap a la mina perduda.
             </p>
             <div class="card card-soft" style="margin-top: 1rem;">
-              <h3 class="card-title">Vida a Lelis</h3>
+              <h3 class="card-title">A la partida</h3>
               <div class="card-body">
                 <p>
-                  Carrers de pedra blanca, teulades blaves i verdes, olor de sal, espècies
-                  exòtiques i música als carrers. Els pescadors fan ofrenes diàries a
-                  <strong>Lelis, deessa del mar</strong>, i molts habitants porten tatuatges
-                  d’onades o peixos com a símbol de llinatge.
+                  Lelis pot seguir apareixent com a punt de retorn per:
                 </p>
-                <p class="map-meta">
-                  Des d’aquesta ciutat surten contractes, rumors de tresors perduts i
-                  encàrrecs de faccions que busquen mans valentes lluny de les capitals
-                  imperials.
-                </p>
+                <ul style="margin: 0.4rem 0 0.4rem 1.1rem; padding: 0; font-size: 0.9rem;">
+                  <li>Rebre nous encàrrecs.</li>
+                  <li>Contactar amb faccions (Aliança de Lords, Arpistes...).</li>
+                  <li>Investigar sobre la història de la mina o els Buscarroques.</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -518,24 +576,23 @@
             <div class="eyebrow">La frontera salvatge</div>
             <h2 class="section-title">Phandalin, vila en reconstrucció</h2>
             <p class="section-lead">
-              Phandalin és una petita vila fronterera alçadada sobre les ruïnes d’un antic
-              assentament. És el vostre nou centre d’operacions, envoltada de granges,
-              granges abandonades, boscos i antigues carreteres mig oblidades.
+              Phandalin és la base actual del grup: una vila construïda sobre ruïnes, amb
+              granges a l’entorn, camins a mitges i una tensió constant entre pagesos,
+              aventurers i bandes criminals.
             </p>
             <div class="card" style="margin-top: 1rem;">
               <h3 class="card-title">Punts clau del poble</h3>
               <div class="card-body">
                 <p>
-                  Aquí hi trobareu llocs com <strong>Subministres Barden</strong>, la posada
-                  <strong>Escut de Lleó</strong>, la vella casa dels <strong>Edermath</strong> o
-                  la <strong>Mansió Thendar</strong>, enrunada damunt d’un turó i amb més
-                  secrets dels que aparenta.
+                  S’hi troben llocs com <strong>Subministres Barden</strong>, la posada, el
+                  temple i la <strong>Mansió Thendar</strong> al turó. Des d’aquí se’ls han
+                  encarregat tasques que han portat el grup a ruïnes, coves i pobles oblidats.
                 </p>
-                <div class="chips-row">
-                  <span class="chip">Centre de subministraments i rumors</span>
-                  <span class="chip">Base de la Marca Roja (fins als vostres actes)</span>
-                  <span class="chip">Connexió amb boscos, ruïnes i carreteres</span>
-                </div>
+                <p class="map-meta">
+                  <strong>Relació amb sessions:</strong> a partir de la vostra arribada a
+                  Phandalin, es despleguen els fils que porten a la
+                  <strong>Mansió Thendar / cau de la Marca Roja</strong> (Sessions 3 i 4).
+                </p>
               </div>
             </div>
           </div>
@@ -543,7 +600,10 @@
             <img
               src="img/maps/Phandalin-player-map.jpg"
               alt="Mapa de Phandalin amb els principals edificis i camins"
+              class="zoomable-map"
+              data-caption="Phandalin: la vila que actua com a base d’operacions del grup."
             >
+            <div class="map-hint">Clica per ampliar</div>
           </div>
         </div>
       </section>
@@ -554,102 +614,113 @@
           <div class="eyebrow">Escenaris d’aventura</div>
           <h2 class="section-title">Coves, ruïnes i castells en l’ombra</h2>
           <p class="section-lead">
-            A continuació tens els mapes dels principals escenaris de la campanya. Alguns ja
-            han estat explorats pel grup, d’altres només es coneixen com a rumors o pistes.
-            El DM pot decidir quan i com mostrar-los als jugadors.
+            Aquests són els principals escenaris visitats fins ara a la campanya, vinculats a
+            sessions concretes. Les imatges es poden obrir en gran per repassar la situació o
+            per utilitzar-les com a suport visual a taula.
           </p>
 
           <div class="scenes-grid">
-            <!-- Cragmaw Hideout -->
+            <!-- Cragmaw Hideout - Sessió 1 -->
             <article class="scene-card">
               <div class="scene-image">
                 <img
                   src="img/maps/Cragmaw%20Hideout%20v1.0.jpg"
                   alt="Mapa de la cova goblin prop de la carretera, amb riu i passarel·les"
+                  class="zoomable-map"
+                  data-caption="Sessió 1: Cova dels goblins que emboscaven la caravana entre Lelis i Phandalin."
                 >
+                <div class="map-hint">Clica per ampliar</div>
               </div>
               <div class="scene-body">
-                <div class="scene-tagline">Partida inicial</div>
+                <div class="scene-tagline">Sessió 1 · Partida inicial</div>
                 <h3 class="scene-title">Cova dels goblins (Camí de Lelis a Phandalin)</h3>
                 <p>
-                  Una emboscada a la carretera va conduir el grup fins a aquesta cova
-                  goblin, on rastres de carros saquejats i presoners deixaven clar que
-                  algú estava atacant sistemàticament les caravanes de la regió.
+                  Després de l’emboscada a la carretera, vau seguir les pistes fins a aquesta cova.
+                  Aquí es va fer evident que els atacs a caravanes eren sistemàtics i responien
+                  a ordres superiors.
                 </p>
                 <p class="map-meta">
-                  <strong>Ús recomanat:</strong> recordar com va començar l’aventura i
-                  visualitzar el primer enfrontament seriós del grup.
+                  <strong>Ús recomanat:</strong> recordar com va començar l’aventura i visualitzar
+                  el primer cau enemic que vau desmantellar.
                 </p>
               </div>
             </article>
 
-            <!-- Redbrand Hideout / Mansió Thendar -->
+            <!-- Redbrand Hideout / Mansió Thendar - Sessions 3 i 4 -->
             <article class="scene-card">
               <div class="scene-image">
                 <img
                   src="img/maps/Redbrand%20Hideout%20v1.0.jpg"
                   alt="Mapa del cau subterrani sota una vella mansió"
+                  class="zoomable-map"
+                  data-caption="Sessions 3–4: Cau de la Marca Roja sota la Mansió Thendar."
                 >
+                <div class="map-hint">Clica per ampliar</div>
               </div>
               <div class="scene-body">
-                <div class="scene-tagline">Phandalin · Sessions 3-4</div>
+                <div class="scene-tagline">Sessions 3–4 · Phandalin</div>
                 <h3 class="scene-title">Mansió Thendar i cau de la Marca Roja</h3>
                 <p>
-                  Sota les ruïnes de la Mansió Thendar, els rufians de la
-                  <strong>Marca Roja</strong> havien establert el seu cau: presons, cambres
-                  secretes i una presència misteriosa observant des de les ombres.
+                  Sota les ruïnes de la Mansió Thendar, la <strong>Marca Roja</strong> havia
+                  establert el seu cau: presons, cambres secretes i una presència estranya que
+                  observava des de les ombres. Les Sessions 3 i 4 recullen aquesta incursió.
                 </p>
                 <p class="map-meta">
-                  <strong>Ús recomanat:</strong> revisar aliats alliberats, pistes trobades i
-                  connexions amb faccions més grans que simplement uns bandits locals.
+                  <strong>Ús recomanat:</strong> revisar quins NPC vau alliberar, quines pistes
+                  vau trobar i què va canviar a Phandalin després d’aquest assalt.
                 </p>
               </div>
             </article>
 
-            <!-- Thundertree (Arboltrueno) -->
+            <!-- Thundertree (Arboltrueno) - Sessió 5 -->
             <article class="scene-card">
               <div class="scene-image">
                 <img
                   src="img/maps/Thundertree%20v1.0.jpg"
                   alt="Mapa del poble en ruïnes d’Arboltrueno envoltat de natura"
+                  class="zoomable-map"
+                  data-caption="Sessió 5: Arboltrueno, el poble en ruïnes sota l’ombra del drac."
                 >
+                <div class="map-hint">Clica per ampliar</div>
               </div>
               <div class="scene-body">
-                <div class="scene-tagline">Poble en ruïnes</div>
+                <div class="scene-tagline">Sessió 5 · Poble en ruïnes</div>
                 <h3 class="scene-title">Arboltrueno, el poble sota l’ombra del drac</h3>
                 <p>
-                  Un poblat abandonat, envaït per la vegetació i criatures estranyes.
-                  Aquí, un drac verd anomenat <strong>Venomfang</strong> ha reclamat les ruïnes
-                  com a domini provisional, mentre mira més enllà buscant un refugi més
-                  digne de la seva grandesa.
+                  Un poblat abandonat, envaït per la vegetació i criatures estranyes. Aquí,
+                  el drac verd <strong>Venomfang</strong> ha reclamat les ruïnes com a domini
+                  provisional, mentre observa què pot treure dels mortals que s’hi atreveixen.
                 </p>
                 <p class="map-meta">
-                  <strong>Ús recomanat:</strong> recordar pactes, deutes pendents i possibles
-                  conseqüències de tractar amb un drac.
+                  <strong>Ús recomanat:</strong> repassar pactes, riscos assumits i possibles
+                  conseqüències futures de tot el que vau decidir a Arboltrueno.
                 </p>
               </div>
             </article>
 
-            <!-- Cragmaw Castle / Castell Bocapeñasco -->
+            <!-- Cragmaw Castle / Castell Bocapeñasco (pendent) -->
             <article class="scene-card">
               <div class="scene-image">
                 <img
                   src="img/maps/Cragmaw%20Castle%20Area%20v1%2070pps.jpg"
                   alt="Mapa de la zona del castell en ruïnes envoltat de bosc"
+                  class="zoomable-map"
+                  data-caption="Castell Bocapeñasco: escenari rumorejat, pendent d’explorar a la campanya."
                 >
+                <div class="map-hint">Clica per ampliar</div>
               </div>
               <div class="scene-body">
                 <div class="scene-tagline">Rumors i pistes</div>
                 <h3 class="scene-title">Castell Bocapeñasco</h3>
                 <p>
-                  Es parla d’un antic castell en ruïnes, amagat entre boscos i turons,
-                  on criatures goblinoides i altres aliats han establert una nova
-                  fortalesa. Alguns rumors l’assenyalen com a destí de presoners importants.
+                  Es parla d’un antic castell en ruïnes, amagat entre boscos i turons, on
+                  criatures goblinoides i altres aliats haurien establert una nova fortalesa.
+                  Alguns rumors el vinculen amb presoners importants.
                 </p>
                 <p class="map-meta">
                   <strong>Estat a la campanya:</strong> encara pendent d’explorar. El DM pot
-                  decidir quina informació exacta coneixen els personatges en funció de les
-                  pistes que hagin seguit fins ara.
+                  decidir quina informació concreta coneix el grup segons les pistes que hagi
+                  anat seguint.
                 </p>
               </div>
             </article>
@@ -665,5 +736,60 @@
       </div>
     </footer>
   </div>
+
+  <!-- LIGHTBOX / ZOOM -->
+  <div class="lightbox-backdrop" id="lightbox">
+    <div class="lightbox-content">
+      <img src="" alt="" class="lightbox-image" id="lightbox-image">
+      <button class="lightbox-close" id="lightbox-close" aria-label="Tancar">×</button>
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const lightbox = document.getElementById('lightbox');
+      const imgEl = document.getElementById('lightbox-image');
+      const captionEl = document.getElementById('lightbox-caption');
+      const closeBtn = document.getElementById('lightbox-close');
+
+      function openLightbox(src, alt, caption) {
+        imgEl.src = src;
+        imgEl.alt = alt || '';
+        captionEl.textContent = caption || alt || '';
+        lightbox.classList.add('active');
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('active');
+        imgEl.src = '';
+        imgEl.alt = '';
+        captionEl.textContent = '';
+      }
+
+      document.querySelectorAll('.zoomable-map').forEach(function (img) {
+        img.addEventListener('click', function () {
+          openLightbox(
+            img.src,
+            img.alt,
+            img.getAttribute('data-caption')
+          );
+        });
+      });
+
+      closeBtn.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) {
+          closeLightbox();
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+          closeLightbox();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
