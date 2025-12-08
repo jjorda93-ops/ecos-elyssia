@@ -206,6 +206,9 @@
       .grid-4 {
         grid-template-columns: repeat(4, minmax(0, 1fr));
       }
+      .grid-5 {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
     }
 
     .card {
@@ -235,16 +238,30 @@
     }
 
     .npc-image {
-      max-height: 180px;
+      height: 180px;              /* mateixa alçada per tots */
       overflow: hidden;
       border-bottom: 1px solid var(--border-light);
       background: #000;
+      cursor: zoom-in;
+      position: relative;
     }
 
     .npc-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: top center; /* mostra sobretot el terç superior (cara) */
+    }
+
+    .img-hint {
+      position: absolute;
+      right: 0.5rem;
+      bottom: 0.45rem;
+      font-size: 0.72rem;
+      color: #fef3c7;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
     }
 
     .npc-name {
@@ -287,16 +304,19 @@
     }
 
     .faction-image {
-      max-height: 160px;
+      height: 180px;             /* mateixa alçada per totes les faccions */
       overflow: hidden;
       border-bottom: 1px solid var(--border-light);
       background: #000;
+      cursor: zoom-in;
+      position: relative;
     }
 
     .faction-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: top center; /* prioritzar part superior del símbol/imatge */
     }
 
     .faction-name {
@@ -312,51 +332,6 @@
       letter-spacing: 0.12em;
       color: #a16235;
       margin-bottom: 0.4rem;
-    }
-
-    /* SPIDER CULT (sense imatge pròpia) */
-
-    .spider-card {
-      background: radial-gradient(circle at top, #1f2933, #111827);
-      border: 1px solid #4b5563;
-      color: #e5e7eb;
-    }
-
-    .spider-inner {
-      padding: 1rem 0.95rem 1.1rem;
-      font-size: 0.9rem;
-    }
-
-    .spider-name {
-      font-family: "Georgia", "Times New Roman", serif;
-      font-size: 1rem;
-      color: #facc6b;
-      margin: 0 0 0.25rem;
-    }
-
-    .spider-tagline {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #f97316;
-      margin-bottom: 0.4rem;
-    }
-
-    .spider-symbol {
-      margin-top: 0.5rem;
-      font-size: 0.86rem;
-      color: #e5e7eb;
-    }
-
-    .spider-symbol span {
-      font-size: 1.1rem;
-      margin-right: 0.2rem;
-    }
-
-    .note-dm {
-      font-size: 0.78rem;
-      margin-top: 0.5rem;
-      opacity: 0.9;
     }
 
     /* SUBSECCIONS */
@@ -406,6 +381,60 @@
     @media (max-width: 720px) {
       .footer-inner { flex-direction: column; }
     }
+
+    /* LIGHTBOX / ZOOM */
+
+    .lightbox-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .lightbox-backdrop.active {
+      display: flex;
+    }
+
+    .lightbox-content {
+      max-width: 95vw;
+      max-height: 95vh;
+      position: relative;
+    }
+
+    .lightbox-image {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      border-radius: 0.75rem;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.9);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -0.75rem;
+      right: -0.75rem;
+      background: #111827;
+      color: #f9fafb;
+      border-radius: 999px;
+      width: 32px;
+      height: 32px;
+      border: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .lightbox-caption {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: #e5e7eb;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -436,13 +465,14 @@
           <p class="section-lead">
             Aliats, enemics declarats i figures que només coneixeu de nom. Aquesta secció recull
             els personatges i grups que donen forma a la història d’<strong>Els Ecos d’Elyssia</strong>,
-            sense revelar secrets que encara s’han de descobrir en partida.
+            sense revelar secrets que encara s’han de descobrir en partida. Pots clicar les
+            imatges per veure-les en gran.
           </p>
           <div class="chips-row">
             <span class="chip">Aliats clau de la campanya</span>
             <span class="chip">Habitants de Phandalin</span>
             <span class="chip">Antagonistes i criatures</span>
-            <span class="chip">Faccions i ordres influents</span>
+            <span class="chip">Faccions, ordres i bandes</span>
           </div>
         </div>
       </section>
@@ -464,7 +494,10 @@
                 <img
                   src="img/npcs/Gundren%20buscarocas%20(1).png"
                   alt="Retrat de Gundren Buscarroques, nan explorador"
+                  class="zoomable-portrait"
+                  data-caption="Gundren Buscarroques, el nan que us va contractar a Lelis."
                 >
+                <div class="img-hint">Clica per ampliar</div>
               </div>
               <div class="card-inner">
                 <div class="npc-role">Nan · Explorador i emprenedor</div>
@@ -487,7 +520,10 @@
                 <img
                   src="img/npcs/germans%20buscarroques.jpeg"
                   alt="Els germans Buscarroques"
+                  class="zoomable-portrait"
+                  data-caption="Els germans Buscarroques, família lligada al destí de la mina."
                 >
+                <div class="img-hint">Clica per ampliar</div>
               </div>
               <div class="card-inner">
                 <div class="npc-role">Nans · Família Buscarroques</div>
@@ -510,7 +546,10 @@
                 <img
                   src="img/npcs/5.2%20Sildar%20Hallwinter%20(1).jpg"
                   alt="Retrat de Sildar Hallwinter"
+                  class="zoomable-portrait"
+                  data-caption="Sildar Hallwinter, guerrer veterà de l’Aliança de Lords."
                 >
+                <div class="img-hint">Clica per ampliar</div>
               </div>
               <div class="card-inner">
                 <div class="npc-role">Humà · Guerrer de l’Aliança de Lords</div>
@@ -532,7 +571,7 @@
 
       <hr class="divider">
 
-      <!-- NPCS ANTAGONISTES / CRIATURES -->
+      <!-- NPCS ANTAGONISTES / CRIATURES ORGANITZADES -->
       <section class="section">
         <div class="section-inner">
           <h2 class="subsection-title">Antagonistes i criatures trobades</h2>
@@ -549,7 +588,10 @@
                 <img
                   src="img/npcs/Iarno%20_Glasstaff_%20Albrek%20-%20Artwork.png"
                   alt="Iarno, mag conegut com Vara de Cristall"
+                  class="zoomable-portrait"
+                  data-caption="Iarno Albrek, el mag conegut com Vara de Cristall."
                 >
+                <div class="img-hint">Clica per ampliar</div>
               </div>
               <div class="card-inner">
                 <div class="npc-role">Humà · Mag conegut com “Vara de Cristall”</div>
@@ -572,7 +614,10 @@
                 <img
                   src="img/npcs/Young%20Green%20Dragon%20-%20Artwork.png"
                   alt="Drac verd jove, semblant a Venomfang"
+                  class="zoomable-portrait"
+                  data-caption="Venomfang, el drac verd jove d’Arboltrueno."
                 >
+                <div class="img-hint">Clica per ampliar</div>
               </div>
               <div class="card-inner">
                 <div class="npc-role">Drac verd jove</div>
@@ -595,7 +640,10 @@
                 <img
                   src="img/npcs/Nothic%20-%20Artwork.png"
                   alt="Criatura Nothic amb un sol ull"
+                  class="zoomable-portrait"
+                  data-caption="El Nothic que habita sota la Mansió Thendar."
                 >
+                <div class="img-hint">Clica per ampliar</div>
               </div>
               <div class="card-inner">
                 <div class="npc-role">Aberració · Observador famolenc</div>
@@ -617,13 +665,16 @@
                 <img
                   src="img/npcs/Gobo.png"
                   alt="Goblin armat"
+                  class="zoomable-portrait"
+                  data-caption="Goblins de les emboscades entre Lelis i Phandalin."
                 >
+                <div class="img-hint">Clica per ampliar</div>
               </div>
               <div class="card-inner">
                 <div class="npc-role">Goblin · Bandits de carretera</div>
                 <h3 class="npc-name">Tribu goblin dels camins</h3>
                 <p>
-                  Goblins que han estat atacant caravans entre Lelis i Phandalin. Tot i que
+                  Goblins que han estat atacant caravanes entre Lelis i Phandalin. Tot i que
                   semblen simples bandits, la seva activitat respon a ordres superiors.
                 </p>
                 <div class="npc-tags">
@@ -639,7 +690,10 @@
                 <img
                   src="img/npcs/Bugbear%20-%20Artwork.png"
                   alt="Bugbear armat"
+                  class="zoomable-portrait"
+                  data-caption="Bugbear que actua com a cap de guerra goblinoide."
                 >
+                <div class="img-hint">Clica per ampliar</div>
               </div>
               <div class="card-inner">
                 <div class="npc-role">Bugbear · Cap de guerra goblinoide</div>
@@ -662,7 +716,10 @@
                 <img
                   src="img/npcs/Redbrand%20Ruffian%20-%20Artwork.png"
                   alt="Rufià de la Marca Roja"
+                  class="zoomable-portrait"
+                  data-caption="Rufians de la Marca Roja, banda criminal de Phandalin."
                 >
+                <div class="img-hint">Clica per ampliar</div>
               </div>
               <div class="card-inner">
                 <div class="npc-role">Humans · Banda de criminals</div>
@@ -688,7 +745,7 @@
           <h2 class="subsection-title">Criatures trobades</h2>
           <p class="subsection-lead">
             Alguns enemics no formen part de grans conspiracions, però deixen marca igualment:
-            animals corromputs, morts vivents o cultistes dispersos.
+            animals corromputs, morts vivents o servents que patrullen ruïnes i camins.
           </p>
 
           <div class="grid grid-4">
@@ -698,7 +755,10 @@
                 <img
                   src="img/npcs/6.%20lobo%20(1).jpg"
                   alt="Llop"
+                  class="zoomable-portrait"
+                  data-caption="Llops utilitzats com a guardians o caçadors als camins."
                 >
+                <div class="img-hint">Clica per ampliar</div>
               </div>
               <div class="card-inner">
                 <div class="npc-role">Bèstia</div>
@@ -716,7 +776,10 @@
                 <img
                   src="img/npcs/7.%20osgo%20(1).jpg"
                   alt="Ós o criatura robusta"
+                  class="zoomable-portrait"
+                  data-caption="Criatures territorials dels boscos de Midland."
                 >
+                <div class="img-hint">Clica per ampliar</div>
               </div>
               <div class="card-inner">
                 <div class="npc-role">Bèstia</div>
@@ -734,7 +797,10 @@
                 <img
                   src="img/npcs/Skeleton%20-%20Artwork.png"
                   alt="Esquelet armat"
+                  class="zoomable-portrait"
+                  data-caption="Esquelets animats que custodien ruïnes i secrets."
                 >
+                <div class="img-hint">Clica per ampliar</div>
               </div>
               <div class="card-inner">
                 <div class="npc-role">No-morts</div>
@@ -746,13 +812,16 @@
               </div>
             </article>
 
-            <!-- Zombie / Cultist -->
+            <!-- Zombie -->
             <article class="card npc-card">
               <div class="npc-image">
                 <img
                   src="img/npcs/Zombie%20-%20Artwork.png"
                   alt="Zombi o mort vivent"
+                  class="zoomable-portrait"
+                  data-caption="Morts vivents impulsats per màgia o devoció cega."
                 >
+                <div class="img-hint">Clica per ampliar</div>
               </div>
               <div class="card-inner">
                 <div class="npc-role">No-morts / Servents</div>
@@ -769,14 +838,15 @@
 
       <hr class="divider">
 
-      <!-- FACCCIONS -->
+      <!-- FACCCIONS, ORDRES I BANDES (5 targetes) -->
       <section class="section">
         <div class="section-inner">
-          <h2 class="subsection-title">Faccions i ordres</h2>
+          <h2 class="subsection-title">Faccions, ordres i bandes</h2>
           <p class="subsection-lead">
-            Més enllà de la vila i els camins, hi ha grups organitzats amb interessos propis:
-            ordres cavalleresques, xarxes d’informadors i cultes que juguen a un tauler molt
-            més gran que un simple poble de frontera.
+            Més enllà dels individus, hi ha grups organitzats amb interessos propis: ordres
+            cavalleresques, xarxes d’informació, cultes dracònics i bandes criminals. Alguns
+            treballen a la llum del dia; d’altres prefereixen teixir les seves trames des
+            de l’ombra.
           </p>
 
           <div class="grid grid-3">
@@ -786,7 +856,10 @@
                 <img
                   src="img/factions-others/alianza%20de%20lores.jpg"
                   alt="Símbol de l’Aliança de Lords"
+                  class="zoomable-portrait"
+                  data-caption="Aliança de Lords, poder polític coordinat per mantenir l’ordre."
                 >
+                <div class="img-hint">Clica per ampliar</div>
               </div>
               <div class="card-inner">
                 <div class="faction-tagline">Poder polític coordinat</div>
@@ -809,7 +882,10 @@
                 <img
                   src="img/factions-others/arpistad.jpg"
                   alt="Símbol dels Arpistes"
+                  class="zoomable-portrait"
+                  data-caption="Els Arpistes, una xarxa discreta d’informadors i aventurers."
                 >
+                <div class="img-hint">Clica per ampliar</div>
               </div>
               <div class="card-inner">
                 <div class="faction-tagline">Xarxa d’informadors</div>
@@ -826,13 +902,16 @@
               </div>
             </article>
 
-            <!-- Cult of the Dragon (com a referència general) -->
+            <!-- Culte del Drac -->
             <article class="card faction-card">
               <div class="faction-image">
                 <img
                   src="img/factions-others/Cult_of_the_Dragon.webp"
-                  alt="Símbol d’un culte dracònic"
+                  alt="Símbol del Culte del Drac"
+                  class="zoomable-portrait"
+                  data-caption="Culte del Drac, adoradors dels dracs com a futurs governants."
                 >
+                <div class="img-hint">Clica per ampliar</div>
               </div>
               <div class="card-inner">
                 <div class="faction-tagline">Culte dracònic</div>
@@ -848,27 +927,17 @@
                 </div>
               </div>
             </article>
-          </div>
-        </div>
-      </section>
 
-      <!-- MARCA ROJA I ARANYA NEGRA -->
-      <section class="section" style="padding-top: 1rem;">
-        <div class="section-inner">
-          <h2 class="subsection-title">Bandes locals i ombres llunyanes</h2>
-          <p class="subsection-lead">
-            A Phandalin i voltants, la lluita pel control passa tant per bandes visibles com la
-            <strong>Marca Roja</strong> com per forces que encara no han mostrat el rostre.
-          </p>
-
-          <div class="grid grid-3">
-            <!-- Redbrand band -->
+            <!-- Marca Roja -->
             <article class="card faction-card">
               <div class="faction-image">
                 <img
                   src="img/factions-others/Redbrand-ruffians.webp"
                   alt="Membres de la Marca Roja"
+                  class="zoomable-portrait"
+                  data-caption="La Marca Roja, banda criminal que operava des de la Mansió Thendar."
                 >
+                <div class="img-hint">Clica per ampliar</div>
               </div>
               <div class="card-inner">
                 <div class="faction-tagline">Banda criminal local</div>
@@ -885,41 +954,29 @@
               </div>
             </article>
 
-            <!-- Spider cult / Black Spider -->
-            <article class="spider-card">
-              <div class="spider-inner">
-                <div class="spider-tagline">Rumor persistent</div>
-                <h3 class="spider-name">Culte de l’Aranya Negra</h3>
+            <!-- Xarxa de l'Aranya Negra -->
+            <article class="card faction-card">
+              <div class="faction-image">
+                <img
+                  src="img/factions-others/aranya%20negra.jpg"
+                  alt="Símbol vinculat a l’Aranya Negra"
+                  class="zoomable-portrait"
+                  data-caption="Xarxa de l’Aranya Negra: una presència que es deixa notar a través de símbols i ordres, però que encara no ha mostrat el rostre."
+                >
+                <div class="img-hint">Clica per ampliar</div>
+              </div>
+              <div class="card-inner">
+                <div class="faction-tagline">Nom murmurat</div>
+                <h3 class="faction-name">Xarxa de l’Aranya Negra</h3>
                 <p>
                   Es parla d’algú o d’alguna cosa coneguda com <strong>l’Aranya Negra</strong>.
-                  No se sap si és una sola persona, un títol o un símbol, però el seu nom
-                  apareix vinculat a goblins, bandits i moviments estranys al voltant de la
-                  mina perduda.
-                </p>
-                <p class="spider-symbol">
-                  <span>🕷️</span> Es diu que alguns documents i missatges inclouen un símbol
-                  d’aranya esquemàtica, com si fos una signatura que ningú vol pronunciar en veu alta.
-                </p>
-                <p class="note-dm">
-                  DM: aquí pots anar afegint pistes concretes que el grup descobreixi sobre aquest
-                  culte o figura, sense revelar res per avançat.
-                </p>
-              </div>
-            </article>
-
-            <!-- Espai per futures faccions -->
-            <article class="card card-soft faction-card">
-              <div class="card-inner">
-                <div class="faction-tagline">Espai per expandir</div>
-                <h3 class="faction-name">Altres faccions de la campanya</h3>
-                <p>
-                  Pots fer servir aquesta targeta per afegir noves faccions a mesura que la
-                  campanya avanci: ordres religioses, gremis de mags, bandes rivals o
-                  faccions pròpiament creades per Elyssia.
+                  No està clar si és una persona, una xarxa d’agents o un títol, però el seu
+                  símbol apareix vinculat a goblins, bandits i moviments estranys al voltant
+                  de la mina perduda.
                 </p>
                 <div class="npc-tags">
-                  <span class="npc-tag">Editable pel DM</span>
-                  <span class="npc-tag">Afegir quan calgui</span>
+                  <span class="npc-tag">Rumor persistent</span>
+                  <span class="npc-tag">Connexió amb la mina</span>
                 </div>
               </div>
             </article>
@@ -935,5 +992,60 @@
       </div>
     </footer>
   </div>
+
+  <!-- LIGHTBOX / ZOOM -->
+  <div class="lightbox-backdrop" id="lightbox">
+    <div class="lightbox-content">
+      <img src="" alt="" class="lightbox-image" id="lightbox-image">
+      <button class="lightbox-close" id="lightbox-close" aria-label="Tancar">×</button>
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const lightbox = document.getElementById('lightbox');
+      const imgEl = document.getElementById('lightbox-image');
+      const captionEl = document.getElementById('lightbox-caption');
+      const closeBtn = document.getElementById('lightbox-close');
+
+      function openLightbox(src, alt, caption) {
+        imgEl.src = src;
+        imgEl.alt = alt || '';
+        captionEl.textContent = caption || alt || '';
+        lightbox.classList.add('active');
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('active');
+        imgEl.src = '';
+        imgEl.alt = '';
+        captionEl.textContent = '';
+      }
+
+      document.querySelectorAll('.zoomable-portrait').forEach(function (img) {
+        img.addEventListener('click', function () {
+          openLightbox(
+            img.src,
+            img.alt,
+            img.getAttribute('data-caption')
+          );
+        });
+      });
+
+      closeBtn.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) {
+          closeLightbox();
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+          closeLightbox();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
