@@ -219,6 +219,8 @@
       line-height: 1.6;
     }
 
+    /* MAP FRAMES (unificació mida a desktop) */
+
     .map-frame {
       border-radius: 0.9rem;
       overflow: hidden;
@@ -231,8 +233,25 @@
 
     .map-frame img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      display: block;
+    }
+
+    /* Alçada homogènia a desktop */
+    @media (min-width: 900px) {
+      .map-frame {
+        height: 340px; /* mateixa alçada per tots els mapes principals */
+      }
+
+      .map-frame img {
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      /* Opcional: lleugerament més gran per al món complet */
+      .map-frame.map-frame-large {
+        height: 380px;
+      }
     }
 
     .map-hint {
@@ -307,6 +326,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
     }
 
     .scene-body {
@@ -328,6 +348,19 @@
       letter-spacing: 0.12em;
       color: #a16235;
       margin-bottom: 0.45rem;
+    }
+
+    /* GRID DOS MAPES (Midland + Badia) */
+
+    .map-pair {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    @media (min-width: 900px) {
+      .map-pair {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     /* FOOTER */
@@ -441,7 +474,7 @@
           </p>
           <div class="chips-row">
             <span class="chip">🌍 Mapa global del món</span>
-            <span class="chip">🏞️ Regió de Midland i Badia de Midland</span>
+            <span class="chip">🏞️ Midland Counties i Badia de Midland</span>
             <span class="chip">🏘️ Ciutats i pobles</span>
             <span class="chip">⚔️ Escenaris de les sessions 1, 3–4 i 5</span>
           </div>
@@ -451,7 +484,7 @@
       <!-- ELYSSIA GLOBAL -->
       <section class="section">
         <div class="section-inner grid grid-2">
-          <div class="map-frame">
+          <div class="map-frame map-frame-large">
             <img
               src="img/maps/1.%20MAPA%20DEFINITIU%20-%20ELYSSIA.png"
               alt="Mapa general del món d’Elyssia amb continents i regions principals"
@@ -496,37 +529,48 @@
           <p class="section-lead">
             Midland Counties és la regió on es mou el vostre grup: boscos, turons, rutes
             comercials i la <strong>Badia de Midland</strong>, amb ciutats portuàries com
-            <strong>Lelis</strong>. Aquest mapa recull la costa, els ports i els camins que
-            connecten amb l’interior.
+            <strong>Lelis</strong>. A continuació tens el mapa de la regió i el de la costa.
           </p>
-          <div class="grid" style="margin-top: 1.4rem;">
+
+          <div class="map-pair" style="margin-top: 1.4rem;">
+            <!-- Midland Counties -->
+            <div class="map-frame">
+              <img
+                src="img/maps/midland%20counties.png"
+                alt="Mapa de Midland Counties amb les principals zones i rutes"
+                class="zoomable-map"
+                data-caption="Midland Counties: la regió interior on es troben Phandalin i altres assentaments."
+              >
+              <div class="map-hint">Clica per ampliar</div>
+            </div>
+
+            <!-- Costa / Badia de Midland -->
             <div class="map-frame">
               <img
                 src="img/maps/2.%20Costa%20de%20l'espasa.JPG"
                 alt="Mapa de la costa i la Badia de Midland amb ports i rutes principals"
                 class="zoomable-map"
-                data-caption="Regió de Midland Counties i Badia de Midland: ports, rutes i connexió amb l’interior."
+                data-caption="Regió costanera i Badia de Midland: ports, rutes i connexió amb l’interior."
               >
               <div class="map-hint">Clica per ampliar</div>
             </div>
-            <div class="card" style="margin-top: 0.8rem;">
-              <h3 class="card-title">Com usar aquest mapa a la taula</h3>
-              <div class="card-body">
-                <p>
-                  Des d’aquí surten les caravanes que connecten <strong>Lelis</strong> amb
-                  <strong>Phandalin</strong> i altres petits assentaments. És el mapa ideal per
-                  situar:
-                </p>
-                <ul style="margin: 0.4rem 0 0.4rem 1.1rem; padding: 0; font-size: 0.9rem;">
-                  <li>El recorregut de l’escorta de Gundren.</li>
-                  <li>Les zones d’emboscades goblins a la Sessió 1.</li>
-                  <li>Els camins que porten cap a pobles abandonats com Arboltrueno.</li>
-                </ul>
-                <p class="map-meta">
-                  <strong>DM:</strong> pots dibuixar-hi manualment rutes, cercles de “zona d’interès”
-                  o fletxes amb el progrés del grup entre sessions.
-                </p>
-              </div>
+          </div>
+
+          <div class="card" style="margin-top: 1rem;">
+            <h3 class="card-title">Com usar aquests mapes a la taula</h3>
+            <div class="card-body">
+              <p>
+                Entre els dos mapes pots situar:
+              </p>
+              <ul style="margin: 0.4rem 0 0.4rem 1.1rem; padding: 0; font-size: 0.9rem;">
+                <li>El recorregut de l’escorta de <strong>Lelis</strong> a <strong>Phandalin</strong>.</li>
+                <li>Les zones d’<strong>emboscades goblins</strong> de la Sessió 1.</li>
+                <li>Els camins que porten cap a <strong>Arboltrueno</strong> i altres pobles en ruïnes.</li>
+              </ul>
+              <p class="map-meta">
+                <strong>DM:</strong> pots marcar-hi rutes, cercles de “zona d’interès” o fletxes
+                amb el progrés del grup entre sessions.
+              </p>
             </div>
           </div>
         </div>
