@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Els Ecos d’Elyssia</title>
+  <title>Els Ecos d’Elyssia · Campanya</title>
   <style>
     :root {
       --bg-body: #1b130d;
@@ -32,7 +32,6 @@
     }
 
     a { color: inherit; text-decoration: none; }
-
     img { max-width: 100%; display: block; }
 
     .page {
@@ -132,11 +131,6 @@
       box-shadow: 0 8px 22px rgba(185, 28, 28, 0.75);
     }
 
-    .nav a.nav-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 11px 30px rgba(185, 28, 28, 0.95);
-    }
-
     @media (max-width: 720px) {
       .header-inner {
         flex-direction: column;
@@ -145,7 +139,7 @@
       .nav { justify-content: center; }
     }
 
-    /* LAYOUT GENERAL */
+    /* LAYOUT */
 
     .main { flex: 1; }
 
@@ -170,7 +164,7 @@
     .section-lead {
       font-size: 0.95rem;
       color: var(--text-muted);
-      max-width: 40rem;
+      max-width: 44rem;
       line-height: 1.6;
     }
 
@@ -182,152 +176,21 @@
       margin-bottom: 0.4rem;
     }
 
-    /* HERO */
-
-    .hero {
-      position: relative;
-      padding: 4rem 1.25rem 3rem;
-      color: #fef3c7;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: url("img/wallpapers/fons%20de%20pantalla%20dnd.jpg");
-      background-size: cover;
-      background-position: center;
-      filter: brightness(0.6);
-      transform: scale(1.03);
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.05), rgba(15,23,42,0.88));
-    }
-
-    .hero-inner {
-      position: relative;
-      max-width: var(--max-width);
-      margin: 0 auto;
-      display: grid;
-      gap: 2rem;
-      z-index: 1;
-    }
-
-    @media (min-width: 900px) {
-      .hero-inner {
-        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-        align-items: center;
-      }
-    }
-
-    .hero-badge-row {
+    .chips-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-      font-size: 0.75rem;
+      gap: 0.35rem;
+      margin-top: 0.7rem;
     }
 
-    .hero-badge {
-      padding: 0.25rem 0.7rem;
+    .chip {
+      font-size: 0.78rem;
+      padding: 0.15rem 0.55rem;
       border-radius: 999px;
-      border: 1px solid rgba(254, 243, 199, 0.6);
-      background: rgba(15, 23, 42, 0.5);
-    }
-
-    .hero-title {
-      font-family: "Georgia", "Times New Roman", serif;
-      font-size: clamp(2.2rem, 3vw + 1.5rem, 3.1rem);
-      line-height: 1.1;
-      margin: 0 0 1rem;
-      text-shadow: 0 4px 12px rgba(0,0,0,0.8);
-    }
-
-    .hero-title span {
-      color: #facc6b;
-    }
-
-    .hero-lead {
-      max-width: 32rem;
-      font-size: 0.98rem;
-      line-height: 1.7;
-      color: #fff7e6; /* més clar per sobre fons fosc */
-      margin-bottom: 1.4rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-      margin-bottom: 1.3rem;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.55rem 1.2rem;
-      border-radius: 999px;
-      border: 1px solid rgba(254, 243, 199, 0.6);
-      background: rgba(15, 23, 42, 0.75);
-      color: #fef3c7;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.16s ease-out;
-    }
-
-    .btn span.icon { font-size: 1.1rem; }
-
-    .btn-primary {
-      background: linear-gradient(to right, #b91c1c, #c25d3f);
-      border-color: #facc6b;
-      box-shadow: 0 10px 28px rgba(185, 28, 28, 0.85);
-      font-weight: 600;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 36px rgba(185, 28, 28, 1);
-    }
-
-    .btn-ghost:hover {
-      background: rgba(15, 23, 42, 0.95);
-    }
-
-    .hero-meta {
-      font-size: 0.8rem;
-      color: #ffedd5; /* més clar per llegibilitat */
-    }
-
-    .hero-crest {
-      background: radial-gradient(circle at top, rgba(248, 250, 252, 0.6), rgba(243, 232, 211, 0.98));
-      border-radius: var(--radius-lg);
-      border: 2px solid #e5d5b1;
-      box-shadow: var(--shadow-soft);
-      padding: 1.1rem 1rem 1.3rem;
-    }
-
-    .hero-crest-title {
-      font-family: "Georgia", "Times New Roman", serif;
-      font-size: 1.05rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 0.4rem;
-      color: #3b2716;
-    }
-
-    .hero-crest-text {
-      font-size: 0.88rem;
+      background: #f9f1e0;
+      border: 1px solid #e2cfa9;
       color: var(--text-muted);
-      line-height: 1.6;
     }
-
-    /* GRID UTIL */
 
     .grid {
       display: grid;
@@ -336,8 +199,8 @@
 
     @media (min-width: 900px) {
       .grid-2 {
-        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
-        align-items: stretch; /* estirem les dues columnes */
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
+        align-items: center;
       }
     }
 
@@ -366,123 +229,241 @@
       line-height: 1.6;
     }
 
-    .quote {
-      margin-top: 0.9rem;
-      padding-left: 0.85rem;
-      border-left: 3px solid #c25d3f;
-      font-size: 0.86rem;
-      color: #7a5a37;
-      font-style: italic;
+    /* HERO BANNER */
+
+    .hero {
+      padding-top: 2.8rem;
+      padding-bottom: 2.4rem;
     }
 
-    /* HEROIS (PJs) */
+    .hero-layout {
+      display: grid;
+      gap: 1.8rem;
+    }
+
+    @media (min-width: 900px) {
+      .hero-layout {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
+        align-items: stretch;
+      }
+    }
+
+    .hero-image {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(250, 204, 170, 0.5);
+      overflow: hidden;
+      min-height: 220px;
+      background-image: linear-gradient(
+          to bottom,
+          rgba(15,15,10,0.1),
+          rgba(15,15,10,0.85)
+        ),
+        url("img/wallpapers/fons%20de%20pantalla%20dnd.jpg");
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.8);
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .hero-image-inner {
+      padding: 1.1rem 1.3rem;
+      color: #f9fafb;
+      font-size: 0.9rem;
+    }
+
+    .hero-image-inner h2 {
+      margin: 0 0 0.3rem;
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .hero-image-inner p {
+      margin: 0.1rem 0;
+      color: #e5e7eb;
+    }
+
+    .legend-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-soft);
+      padding: 1.3rem 1.3rem 1.2rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .legend-card h2 {
+      margin: 0 0 0.5rem;
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1.1rem;
+      color: #3b2716;
+    }
+
+    .legend-card p { margin: 0.25rem 0; }
+
+    .legend-list {
+      margin: 0.5rem 0 0.2rem 1.1rem;
+      padding: 0;
+      font-size: 0.9rem;
+    }
+
+    .legend-list li { margin-bottom: 0.15rem; }
+
+    /* HEROES SECTION */
+
+    .heroes-section {
+      padding-top: 2rem;
+      padding-bottom: 3rem;
+    }
 
     .heroes-grid {
       display: grid;
-      gap: 1rem;
-      margin-top: 1.4rem;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
     }
 
-    @media (min-width: 768px) {
+    @media (min-width: 900px) {
       .heroes-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
       }
     }
 
     .hero-card {
-      background: #f9f1e0;
-      border-radius: 0.9rem;
-      border: 1px solid #d8c29f;
-      padding: 1rem 0.85rem;
-      box-shadow: 0 10px 26px rgba(0,0,0,0.35);
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-      font-size: 0.86rem;
-    }
-
-    .hero-card-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #a16235;
-    }
-
-    .hero-card-name {
-      font-family: "Georgia", "Times New Roman", serif;
-      font-size: 0.98rem;
-      font-weight: 600;
-    }
-
-    .hero-card-meta {
-      color: var(--text-muted);
-    }
-
-    .hero-card-note {
-      color: var(--text-muted);
-      margin-top: 0.15rem;
-    }
-
-    /* ENTRADES RÀPIDES */
-
-    .portal-grid {
-      display: grid;
-      gap: 1rem;
-      margin-top: 1.4rem;
-    }
-
-    @media (min-width: 768px) {
-      .portal-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-    }
-
-    .portal-card {
       background: var(--bg-card);
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-light);
-      padding: 1rem 0.95rem;
-      font-size: 0.88rem;
-      color: var(--text-muted);
       box-shadow: var(--shadow-soft);
+      padding: 1.1rem 0.95rem 1.1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
+      align-items: center;
+      gap: 0.5rem;
     }
 
-    .portal-title {
+    .hero-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 2px solid #facc6b;
+      box-shadow: 0 0 0 2px #1f2937, 0 12px 25px rgba(0,0,0,0.6);
+      background: #000;
+      cursor: zoom-in;
+      position: relative;
+    }
+
+    .hero-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero-hint {
+      position: absolute;
+      inset: auto 0.35rem 0.35rem auto;
+      font-size: 0.68rem;
+      color: #fef3c7;
+      background: rgba(0,0,0,0.6);
+      padding: 0.1rem 0.35rem;
+      border-radius: 999px;
+    }
+
+    .hero-name {
       font-family: "Georgia", "Times New Roman", serif;
       font-size: 1rem;
       color: #3b2716;
+      margin: 0;
     }
 
-    .portal-icon {
-      font-size: 1.3rem;
+    .hero-role {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #a16235;
     }
 
-    .tag-link {
-      margin-top: 0.25rem;
-      font-size: 0.8rem;
-      color: #8b2e2e;
-      text-decoration: underline;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 3px;
+    .hero-note {
+      margin: 0.2rem 0 0.1rem;
     }
 
-    /* IMATGE FORJA */
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.25rem;
+      margin-top: 0.35rem;
+    }
 
-    .forge-image {
-      border-radius: 0.9rem;
+    .hero-tag {
+      font-size: 0.72rem;
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid #e2cfa9;
+      background: #fdf6e7;
+      color: var(--text-muted);
+    }
+
+    hr.divider {
+      border: 0;
+      border-top: 1px solid rgba(148, 163, 184, 0.45);
+      margin: 2.2rem 0 1.8rem;
+    }
+
+    /* SUMMARY SECTION */
+
+    .summary-layout {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 900px) {
+      .summary-layout {
+        grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      }
+    }
+
+    .summary-image {
+      border-radius: var(--radius-lg);
       overflow: hidden;
-      border: 1px solid var(--border-light);
-      box-shadow: var(--shadow-soft);
-      height: 100%;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      background-image: linear-gradient(
+          to bottom,
+          rgba(15,15,10,0.1),
+          rgba(15,15,10,0.85)
+        ),
+        url("img/wallpapers/pic-Mine-Entrance.jpg");
+      background-size: cover;
+      background-position: center;
+      min-height: 220px;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.8);
+      display: flex;
+      align-items: flex-end;
     }
 
-    .forge-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover; /* retalla pels costats si cal */
+    .summary-image-inner {
+      padding: 0.9rem 1.1rem;
+      color: #f9fafb;
+      font-size: 0.86rem;
+    }
+
+    .summary-image-inner h3 {
+      margin: 0 0 0.25rem;
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .summary-image-inner p {
+      margin: 0.15rem 0;
+      color: #e5e7eb;
     }
 
     /* FOOTER */
@@ -507,6 +488,60 @@
     @media (max-width: 720px) {
       .footer-inner { flex-direction: column; }
     }
+
+    /* LIGHTBOX */
+
+    .lightbox-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .lightbox-backdrop.active {
+      display: flex;
+    }
+
+    .lightbox-content {
+      max-width: 95vw;
+      max-height: 95vh;
+      position: relative;
+    }
+
+    .lightbox-image {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      border-radius: 0.75rem;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.9);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -0.75rem;
+      right: -0.75rem;
+      background: #111827;
+      color: #f9fafb;
+      border-radius: 999px;
+      width: 32px;
+      height: 32px;
+      border: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .lightbox-caption {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: #e5e7eb;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -521,192 +556,236 @@
           </div>
         </a>
         <nav class="nav">
+          <a href="index.html" class="nav-primary">Ecos d’Elyssia</a>
           <a href="mapes-i-localitzacions.html">Mapes i Localitzacions</a>
           <a href="npcs-i-faccions.html">NPCs i Faccions</a>
-          <a href="diari-de-campanya.html" class="nav-primary">Diari de Campanya</a>
+          <a href="diari-de-campanya.html">Diari de Campanya</a>
         </nav>
       </div>
     </header>
 
     <main class="main">
-      <!-- HERO -->
-      <section class="hero">
-        <div class="hero-inner">
+      <!-- HERO / OVERVIEW -->
+      <section class="section hero">
+        <div class="section-inner hero-layout">
           <div>
-            <div class="hero-badge-row">
-              <span class="hero-badge">Basada en “La Mina Perduda de Phandelver”</span>
-              <span class="hero-badge">Sistema: D&D 5a edició</span>
-            </div>
-            <h1 class="hero-title">
-              Una mina perduda, una forja ancestral<br>
-              i uns ecos que ressonen per <span>Elyssia</span>.
-            </h1>
-            <p class="hero-lead">
-              Un encàrrec senzill d’escorta des de la ciutat de Lelis us ha portat fins a les
-              fronteres salvatges de Midland. Goblins a les carreteres, bandits a Phandalin i un
-              nom murmurat entre ombres: <strong>l’Aranya Negra</strong>.
+            <div class="eyebrow">Campanya</div>
+            <h1 class="section-title">Els Ecos d’Elyssia</h1>
+            <p class="section-lead">
+              Un encàrrec senzill d’escorta a la ciutat costanera de <strong>Lelis</strong>
+              ha acabat revelant conspiracions, bandes criminals i la promesa d’una
+              <strong>mina perduda</strong> capaç de forjar meravelles. Aquesta pàgina
+              recull la visió general de la campanya.
             </p>
-            <div class="hero-actions">
-              <a href="diari-de-campanya.html" class="btn btn-primary">
-                <span class="icon">▶</span>
-                <span>Entrar a la història</span>
-              </a>
-              <a href="mapes-i-localitzacions.html" class="btn btn-ghost">
-                <span class="icon">🗺️</span>
-                <span>Veure el territori</span>
-              </a>
-            </div>
-            <div class="hero-meta">
-              Campanya en curs · Herois locals intentant evitar que la mina torni a despertar alguna cosa
-              que el món no està preparat per contenir.
+            <div class="chips-row">
+              <span class="chip">Mina perduda i Forja antiga</span>
+              <span class="chip">Midland Counties</span>
+              <span class="chip">Phandalin com a base d’operacions</span>
             </div>
           </div>
 
-          <aside class="hero-crest">
-            <div class="hero-crest-title">Crònica breu</div>
-            <p class="hero-crest-text">
-              Fa segles, nans i gnoms van signar el <strong>Pacte de Phandelver</strong> per
-              compartir una mina plena de gemmes i energia màgica. Amb l’ajuda de mags humans van
-              construir la <strong>Forja de les Spells</strong>, capaç de transformar la força
-              dels plans en objectes meravellosos.
-            </p>
-            <p class="hero-crest-text">
-              La guerra i la màgia desbocada ho van destruir tot i la cova va desaparèixer de la
-              memòria del món. Fins ara. Els germans Buscarroques han trobat de nou l’entrada… i
-              algú més també l’està buscant.
-            </p>
-          </aside>
+          <div class="hero-image">
+            <div class="hero-image-inner">
+              <h2>La crida a l’aventura</h2>
+              <p>
+                Rumors d’una mina oblidada, goblins massa organitzats i el nom d’una
+                <strong>Aranya Negra</strong> que apareix en símbols i murmuris. Els herois
+                han respost, però encara no saben qui mou els fils des de l’ombra.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- FORJA I MINA PERDUDA -->
+      <!-- LLEGENDA DE LA CAMPANYA -->
       <section class="section">
         <div class="section-inner grid grid-2">
-          <div>
-            <div class="eyebrow">La llegenda al centre de la campanya</div>
-            <h2 class="section-title">La Forja de les Spells i la mina oblidada</h2>
-            <p class="section-lead">
-              Al cor de la Cova de l’Ona Echo, la Forja de les Spells canalitza una corrent
-              de màgia primigènia. Durant dècades va ser el secret millor guardat d’artesans
-              nans i gnoms, fins que la cobdícia d’orcs i conjuradors corruptes va provocar
-              una batalla que gairebé va esfondrar la mina sencera.
+          <div class="legend-card">
+            <h2>La Forja i la mina perduda</h2>
+            <p>
+              Fa generacions, una mina amagada a les profunditats de <strong>Midland Counties</strong>
+              albergava una <strong>Forja</strong> capaç de dotar d’un poder extraordinari
+              armes, armadures i artefactes. Entre guerres, traïcions i desastres màgics, la
+              mina va desaparèixer dels mapes… però no de les llegendes.
             </p>
-            <div class="card card-soft" style="margin-top: 1.1rem;">
-              <h3 class="card-title">El que se sap ara mateix</h3>
-              <p class="card-body">
-                Els germans Buscarroques han redescobert l’entrada i preparaven una expedició
-                quan han estat atacats. Gundren ha desaparegut, el seu mapa també, i bandes
-                com la <strong>Marca Roja</strong> i tribus goblins s’estan movent d’una manera
-                massa coordinada per ser simple casualitat.
-              </p>
-              <p class="card-body">
-                Entre els rumors es repeteix un nom: <strong>l’Aranya Negra</strong>, algú
-                disposat a usar bandits, monstres i màgia prohibida per controlar la Forja
-                abans que ningú més hi arribi.
-              </p>
-              <p class="quote">
-                “No totes les mines busquen or. Algunes amaguen coses que ni els déus volen
-                tornar a veure en aquest món.”
+            <p>
+              Ara, nans com els <strong>Buscarroques</strong> creuen haver-la localitzat de nou.
+              I no són els únics interessats: símbols d’una <strong>aranya negra</strong>, bandes
+              com la <strong>Marca Roja</strong>, cultes dracònics i faccions com
+              l’<strong>Aliança de Lords</strong> semblen moure’s al voltant del mateix secret.
+            </p>
+          </div>
+          <div class="card card-soft">
+            <h3 class="card-title">El que se sap fins ara</h3>
+            <div class="card-body">
+              <ul class="legend-list">
+                <li>Gundren Buscarroques ha estat capturat i segrestat cap al <strong>Castell Bocapeñasco</strong>.</li>
+                <li>La <strong>Marca Roja</strong> controlava Phandalin des de la <strong>Mansió Thendar</strong>.</li>
+                <li>Hi ha un drac verd, <strong>Venomfang</strong>, que busca un nou cau a la regió.</li>
+                <li>El símbol d’una <strong>aranya negra</strong> apareix repetidament en llocs clau.</li>
+              </ul>
+              <p style="margin-top:0.45rem;">
+                La resta no són més que especulacions, rumors i pistes a mig escrutar.
               </p>
             </div>
-          </div>
-
-          <div class="forge-image">
-            <img
-              src="img/wallpapers/pic-Mine-Entrance.jpg"
-              alt="Entrada a una mina antiga, il·luminada per una llum tènue, recordant la Cova de l’Ona Echo"
-            >
           </div>
         </div>
       </section>
 
-      <!-- HEROIS (PJs) -->
-      <section class="section" style="padding-top: 2.2rem;">
+      <!-- HEROES (PERSONATGES JUGADORS) -->
+      <section class="section heroes-section">
         <div class="section-inner">
           <div class="eyebrow">Els protagonistes</div>
           <h2 class="section-title">Els herois que han respost a la crida</h2>
           <p class="section-lead">
-            Aquí hi podeu afegir els personatges del grup: qui són, quina marca volen deixar
-            sobre Elyssia i per què no podien ignorar la crida de Gundren Buscarroques.
+            Aquests són els aventurers que, per motius molt diferents, han acabat compartint
+            camí des de Lelis fins a Phandalin i més enllà. Clica les seves imatges per veure-les
+            en gran.
           </p>
 
           <div class="heroes-grid">
+            <!--
+              IMPORTANT: aquí és on has de posar els TEUS personatges.
+              Canvia:
+                - src i alt de la imatge
+                - nom del personatge
+                - classe / rol
+                - text descriptiu
+            -->
+
+            <!-- PJ 1 -->
             <article class="hero-card">
-              <div class="hero-card-label">Oleguer</div>
-              <div class="hero-card-name">Killin</div>
-              <div class="hero-card-meta">Humà · Pícaro · Nivell 3</div>
-              <p class="hero-card-note">
-                Ajudo a qui m'ajuda, això és el que em manté amb vida.
+              <div class="hero-avatar">
+                <img
+                  src="img/pcs/personatge1.jpg"
+                  alt="Retrat del personatge 1"
+                  class="zoomable-hero"
+                  data-caption="Nom del Personatge 1, breu descripció."
+                >
+                <div class="hero-hint">Clica per ampliar</div>
+              </div>
+              <h3 class="hero-name">Nom Personatge 1</h3>
+              <div class="hero-role">Raça · Classe/rol</div>
+              <p class="hero-note">
+                Frase curta sobre el seu objectiu o la seva actitud a la campanya.
               </p>
+              <div class="hero-tags">
+                <span class="hero-tag">Origen: ...</span>
+                <span class="hero-tag">Motivació: ...</span>
+              </div>
             </article>
+
+            <!-- PJ 2 -->
             <article class="hero-card">
-              <div class="hero-card-label">Bach</div>
-              <div class="hero-card-name">Erkunidas</div>
-              <div class="hero-card-meta">Enano · Paladín · Nivell 3</div>
-              <p class="hero-card-note">
-                Dogma de la devoció: Responsabilitzat de les teves accions
+              <div class="hero-avatar">
+                <img
+                  src="img/pcs/personatge2.jpg"
+                  alt="Retrat del personatge 2"
+                  class="zoomable-hero"
+                  data-caption="Nom del Personatge 2, breu descripció."
+                >
+                <div class="hero-hint">Clica per ampliar</div>
+              </div>
+              <h3 class="hero-name">Nom Personatge 2</h3>
+              <div class="hero-role">Raça · Classe/rol</div>
+              <p class="hero-note">
+                Frase curta que el defineixi (honor, venjança, curiositat, fe...).
               </p>
+              <div class="hero-tags">
+                <span class="hero-tag">Origen: ...</span>
+                <span class="hero-tag">Enllaç amb la mina</span>
+              </div>
             </article>
+
+            <!-- PJ 3 -->
             <article class="hero-card">
-              <div class="hero-card-label">Sori</div>
-              <div class="hero-card-name">Ebar</div>
-              <div class="hero-card-meta">Humà · Hechicero · Nivell 3</div>
-              <p class="hero-card-note">
-                Busco demostrar el meu valor, i fer que es reconegui el nom de la meva familia
+              <div class="hero-avatar">
+                <img
+                  src="img/pcs/personatge3.jpg"
+                  alt="Retrat del personatge 3"
+                  class="zoomable-hero"
+                  data-caption="Nom del Personatge 3, breu descripció."
+                >
+                <div class="hero-hint">Clica per ampliar</div>
+              </div>
+              <h3 class="hero-name">Nom Personatge 3</h3>
+              <div class="hero-role">Raça · Classe/rol</div>
+              <p class="hero-note">
+                Potser llaços amb Gundren, amb alguna facció o amb la regió de Midland.
               </p>
+              <div class="hero-tags">
+                <span class="hero-tag">Contactes: ...</span>
+                <span class="hero-tag">Especialitat: ...</span>
+              </div>
             </article>
+
+            <!-- PJ 4 -->
             <article class="hero-card">
-              <div class="hero-card-label">Melero</div>
-              <div class="hero-card-name">Llunara</div>
-              <div class="hero-card-meta">Elfo · Druida · Nivell 2</div>
-              <p class="hero-card-note">
-                Viatjo pel continent, estic en pau amb la natura.
+              <div class="hero-avatar">
+                <img
+                  src="img/pcs/personatge4.jpg"
+                  alt="Retrat del personatge 4"
+                  class="zoomable-hero"
+                  data-caption="Nom del Personatge 4, breu descripció."
+                >
+                <div class="hero-hint">Clica per ampliar</div>
+              </div>
+              <h3 class="hero-name">Nom Personatge 4</h3>
+              <div class="hero-role">Raça · Classe/rol</div>
+              <p class="hero-note">
+                El seu paper al grup: líder, veu de la consciència, força bruta, cervell...
               </p>
+              <div class="hero-tags">
+                <span class="hero-tag">Rasgos: ...</span>
+                <span class="hero-tag">Connexió amb algun NPC</span>
+              </div>
             </article>
           </div>
         </div>
       </section>
 
-      <!-- ACCÉS RÀPID A ALTRES SECCIONS -->
-      <section class="section" style="padding-top: 1.5rem; padding-bottom: 2.5rem;">
-        <div class="section-inner">
-          <div class="eyebrow">Per on seguir</div>
-          <h2 class="section-title">Portes d’entrada al vostre món</h2>
-          <p class="section-lead">
-            Utilitzeu aquestes seccions per no perdre el fil entre sessions: mapes per situar-vos,
-            personatges per recordar qui és qui i un diari per repassar què ha passat.
-          </p>
+      <hr class="divider">
 
-          <div class="portal-grid">
-            <article class="portal-card">
-              <div class="portal-icon">🗺️</div>
-              <div class="portal-title">Mapes i Localitzacions</div>
-              <p>
-                La regió de Midland, la costa de l’espasa, Phandalin i tots els escenaris de
-                la campanya en un sol lloc.
-              </p>
-              <a href="mapes-i-localitzacions.html" class="tag-link">Anar als mapes →</a>
-            </article>
+      <!-- ESTAT ACTUAL / ENLLAÇ A ALTRES PÀGINES -->
+      <section class="section">
+        <div class="section-inner summary-layout">
+          <div>
+            <div class="eyebrow">On es troba la història</div>
+            <h2 class="section-title">En quin punt esteu?</h2>
+            <p class="section-lead">
+              El diari de campanya recull detalladament què ha passat fins a
+              <strong>Arboltrueno</strong>. Aquí tens un resum perquè, des de la portada,
+              quedi clar quin és el context actual.
+            </p>
+            <div class="card card-soft" style="margin-top:1rem;">
+              <h3 class="card-title">Fils principals oberts</h3>
+              <div class="card-body">
+                <ul style="margin:0.3rem 0 0.3rem 1.1rem; padding:0; font-size:0.9rem;">
+                  <li>Rescatar <strong>Gundren Buscarroques</strong> al Castell Bocapeñasco.</li>
+                  <li>Decidir què fer amb el <strong>pacte amb Venomfang</strong>.</li>
+                  <li>Entendre fins on arriba la influència de la <strong>Marca Roja</strong>.</li>
+                  <li>Investigar què s’amaga darrere el símbol de l’<strong>Aranya Negra</strong>.</li>
+                </ul>
+                <p style="margin-top:0.45rem;">
+                  Per al detall sessió a sessió, ves al <strong>Diari de Campanya</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
 
-            <article class="portal-card">
-              <div class="portal-icon">🧙‍♂️</div>
-              <div class="portal-title">NPCs i Faccions</div>
+          <div class="summary-image">
+            <div class="summary-image-inner">
+              <h3>Cap a la mina</h3>
               <p>
-                Gundren, Sidlar, la Marca Roja, l’Orden del Guantelete i la resta de peces
-                d’aquest tauler.
+                Cada camí, cada decisió, cada pacte us apropa —o us allunya—
+                de la veritat sobre la Forja i sobre qui està fent servir la
+                mina perduda com a tauler de joc.
               </p>
-              <a href="npcs-i-faccions.html" class="tag-link">Veure personatges →</a>
-            </article>
-
-            <article class="portal-card">
-              <div class="portal-icon">📜</div>
-              <div class="portal-title">Diari de Campanya</div>
               <p>
-                Resums de cada sessió, decisions clau i objectius oberts. Perfecte per llegir
-                abans de tirar la primera tirada de la nit.
+                Els mapes i el diari us ajuden a recordar d’on veniu. El
+                següent pas, però, serà sempre vostre.
               </p>
-              <a href="diari-de-campanya.html" class="tag-link">Obrir el diari →</a>
-            </article>
+            </div>
           </div>
         </div>
       </section>
@@ -714,10 +793,65 @@
 
     <footer class="site-footer">
       <div class="footer-inner">
-        <span>Els Ecos d’Elyssia · Campanya de Dungeons & Dragons 5a edició.</span>
+        <span>Els Ecos d’Elyssia · Pàgina principal.</span>
         <span>Adaptació lliure de “La Mina Perduda de Phandelver”.</span>
       </div>
     </footer>
   </div>
+
+  <!-- LIGHTBOX / ZOOM PER A LES FOTOS DELS PJs -->
+  <div class="lightbox-backdrop" id="lightbox">
+    <div class="lightbox-content">
+      <img src="" alt="" class="lightbox-image" id="lightbox-image">
+      <button class="lightbox-close" id="lightbox-close" aria-label="Tancar">×</button>
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const lightbox = document.getElementById('lightbox');
+      const imgEl = document.getElementById('lightbox-image');
+      const captionEl = document.getElementById('lightbox-caption');
+      const closeBtn = document.getElementById('lightbox-close');
+
+      function openLightbox(src, alt, caption) {
+        imgEl.src = src;
+        imgEl.alt = alt || '';
+        captionEl.textContent = caption || alt || '';
+        lightbox.classList.add('active');
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('active');
+        imgEl.src = '';
+        imgEl.alt = '';
+        captionEl.textContent = '';
+      }
+
+      document.querySelectorAll('.zoomable-hero').forEach(function (img) {
+        img.addEventListener('click', function () {
+          openLightbox(
+            img.src,
+            img.alt,
+            img.getAttribute('data-caption')
+          );
+        });
+      });
+
+      closeBtn.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) {
+          closeLightbox();
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+          closeLightbox();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
