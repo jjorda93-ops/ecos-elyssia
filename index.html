@@ -312,50 +312,111 @@
 
     .legend-list li { margin-bottom: 0.15rem; }
 
-    /* HEROES SECTION */
+    /* HEROES SLIDER */
 
     .heroes-section {
       padding-top: 2rem;
       padding-bottom: 3rem;
     }
 
-    .heroes-grid {
-      display: grid;
-      gap: 1.5rem;
-      margin-top: 1.5rem;
+    .heroes-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.2rem;
     }
 
-    @media (min-width: 900px) {
-      .heroes-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
+    .heroes-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .heroes-slider-wrapper {
+      position: relative;
+      margin-top: 1rem;
+    }
+
+    .heroes-slider {
+      display: flex;
+      gap: 1.2rem;
+      padding: 0.5rem 0.25rem 0.5rem 0;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: #8b2e2e #1b130d;
+    }
+
+    .heroes-slider::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .heroes-slider::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    .heroes-slider::-webkit-scrollbar-thumb {
+      background: #8b2e2e;
+      border-radius: 999px;
     }
 
     .hero-card {
+      scroll-snap-align: center;
+      min-width: 280px;
+      max-width: 320px;
       background: var(--bg-card);
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-light);
-      box-shadow: var(--shadow-soft);
-      padding: 1.1rem 0.95rem 1.1rem;
-      text-align: center;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.65);
+      padding: 1.1rem 1rem 1.1rem;
       font-size: 0.9rem;
       color: var(--text-muted);
+      position: relative;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
+      transform-origin: center;
+    }
+
+    @media (min-width: 900px) {
+      .heroes-slider {
+        padding-left: 0.4rem;
+      }
+      .hero-card {
+        margin-right: -0.6rem;
+      }
+      .hero-card:nth-child(1) { z-index: 4; }
+      .hero-card:nth-child(2) { z-index: 3; }
+      .hero-card:nth-child(3) { z-index: 2; }
+      .hero-card:nth-child(4) { z-index: 1; }
+      .hero-card:hover {
+        transform: translateY(-4px);
+      }
+    }
+
+    .hero-badge {
+      position: absolute;
+      top: 0.7rem;
+      right: 0.7rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: #111827;
+      color: #fef3c7;
+      padding: 0.18rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid #facc6b;
     }
 
     .hero-avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: 999px;
+      width: 100%;
+      border-radius: 0.9rem;
       overflow: hidden;
-      border: 2px solid #facc6b;
-      box-shadow: 0 0 0 2px #1f2937, 0 12px 25px rgba(0,0,0,0.6);
+      border: 1px solid #e2cfa9;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.6);
       background: #000;
       cursor: zoom-in;
       position: relative;
+      max-height: 220px;
     }
 
     .hero-avatar img {
@@ -367,47 +428,69 @@
 
     .hero-hint {
       position: absolute;
-      inset: auto 0.35rem 0.35rem auto;
-      font-size: 0.68rem;
+      inset: auto 0.5rem 0.5rem auto;
+      font-size: 0.7rem;
       color: #fef3c7;
       background: rgba(0,0,0,0.6);
-      padding: 0.1rem 0.35rem;
+      padding: 0.12rem 0.45rem;
       border-radius: 999px;
     }
 
     .hero-name {
       font-family: "Georgia", "Times New Roman", serif;
-      font-size: 1rem;
+      font-size: 1.05rem;
       color: #3b2716;
-      margin: 0;
+      margin: 0.4rem 0 0.1rem;
     }
 
-    .hero-role {
+    .hero-player {
       font-size: 0.78rem;
       text-transform: uppercase;
       letter-spacing: 0.16em;
       color: #a16235;
+      margin-bottom: 0.25rem;
     }
 
-    .hero-note {
-      margin: 0.2rem 0 0.1rem;
+    .hero-role {
+      font-size: 0.85rem;
+      color: #6b4b2b;
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-text {
+      font-size: 0.88rem;
+      line-height: 1.6;
     }
 
     .hero-tags {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
       gap: 0.25rem;
-      margin-top: 0.35rem;
+      margin-top: 0.4rem;
     }
 
     .hero-tag {
       font-size: 0.72rem;
-      padding: 0.1rem 0.5rem;
+      padding: 0.12rem 0.5rem;
       border-radius: 999px;
       border: 1px solid #e2cfa9;
       background: #fdf6e7;
       color: var(--text-muted);
+    }
+
+    .heroes-scroll-hint {
+      margin-top: 0.6rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .heroes-scroll-hint::before {
+      content: "↔";
+      font-size: 0.9rem;
+      color: #facc6b;
     }
 
     hr.divider {
@@ -415,8 +498,6 @@
       border-top: 1px solid rgba(148, 163, 184, 0.45);
       margin: 2.2rem 0 1.8rem;
     }
-
-    /* SUMMARY SECTION */
 
     .summary-layout {
       display: grid;
@@ -466,8 +547,6 @@
       color: #e5e7eb;
     }
 
-    /* FOOTER */
-
     .site-footer {
       border-top: 2px solid #4b2f1b;
       background: #130c07;
@@ -488,8 +567,6 @@
     @media (max-width: 720px) {
       .footer-inner { flex-direction: column; }
     }
-
-    /* LIGHTBOX */
 
     .lightbox-backdrop {
       position: fixed;
@@ -632,114 +709,153 @@
         </div>
       </section>
 
-      <!-- HEROES (PERSONATGES JUGADORS) -->
+      <!-- HEROES SLIDER (PJs) -->
       <section class="section heroes-section">
         <div class="section-inner">
-          <div class="eyebrow">Els protagonistes</div>
-          <h2 class="section-title">Els herois que han respost a la crida</h2>
-          <p class="section-lead">
-            Aquests són els aventurers que, per motius molt diferents, han acabat compartint
-            camí des de Lelis fins a Phandalin i més enllà. Clica les seves imatges per veure-les
-            en gran.
-          </p>
+          <div class="heroes-header">
+            <div class="eyebrow">Els protagonistes</div>
+            <h2 class="section-title">Els herois que han respost a la crida</h2>
+            <p class="section-lead">
+              Aquestes són les ànimes valentes que han deixat enrere la comoditat de casa seva
+              per seguir el rastre de la mina perduda, la Forja i l’ombra de l’Aranya Negra.
+              Clica la imatge de cada personatge per veure’n el retrat en gran.
+            </p>
+            <div class="heroes-meta">
+              Els personatges apareixen com a cartes solapades. Pots <strong>lliscar horitzontalment</strong>
+              per veure’ls tots.
+            </div>
+          </div>
 
-          <div class="heroes-grid">
-            <!--
-              IMPORTANT: aquí és on has de posar els TEUS personatges.
-              Canvia:
-                - src i alt de la imatge
-                - nom del personatge
-                - classe / rol
-                - text descriptiu
-            -->
+          <div class="heroes-slider-wrapper">
+            <div class="heroes-slider">
+              <!-- LLUNARA -->
+              <article class="hero-card">
+                <div class="hero-badge">PJ</div>
+                <div class="hero-avatar">
+                  <img
+                    src="img/npcs/Llunara.png"
+                    alt="Llunara, elfa silvestre"
+                    class="zoomable-hero"
+                    data-caption="Llunara (Melero), elfa silvestre lligada als boscos de Sylvandor."
+                  >
+                  <div class="hero-hint">Clica per ampliar</div>
+                </div>
+                <h3 class="hero-name">Llunara</h3>
+                <div class="hero-player">Melero · Elfa silvestre exploradora-druida</div>
+                <div class="hero-role">
+                  Filla de l’Ordre de l’Aurora Silvestre, marcada per la destrucció de Sylvandor.
+                </div>
+                <p class="hero-text">
+                  Va créixer entre druides guardians, aprenent a escoltar el bosc i a moure’s en silenci.
+                  Després que mercenaris i aranyes gegants arrasessin el seu poble, vaga pel món amb un
+                  jurament de venjança, protegint la natura i els innocents. Sigil·losa, astuta i amb
+                  un talent inesperat per la música, costa guanyar-se la seva confiança, però un cop ho
+                  fas, es manté al teu costat fins al final.
+                </p>
+                <div class="hero-tags">
+                  <span class="hero-tag">Origen: Sylvandor</span>
+                  <span class="hero-tag">Jurament de venjança</span>
+                  <span class="hero-tag">Bosc, rastreig i supervivència</span>
+                </div>
+              </article>
 
-            <!-- PJ 1 -->
-            <article class="hero-card">
-              <div class="hero-avatar">
-                <img
-                  src="img/pcs/personatge1.jpg"
-                  alt="Retrat del personatge 1"
-                  class="zoomable-hero"
-                  data-caption="Nom del Personatge 1, breu descripció."
-                >
-                <div class="hero-hint">Clica per ampliar</div>
-              </div>
-              <h3 class="hero-name">Nom Personatge 1</h3>
-              <div class="hero-role">Raça · Classe/rol</div>
-              <p class="hero-note">
-                Frase curta sobre el seu objectiu o la seva actitud a la campanya.
-              </p>
-              <div class="hero-tags">
-                <span class="hero-tag">Origen: ...</span>
-                <span class="hero-tag">Motivació: ...</span>
-              </div>
-            </article>
+              <!-- ERKUNIDAS -->
+              <article class="hero-card">
+                <div class="hero-badge">PJ</div>
+                <div class="hero-avatar">
+                  <img
+                    src="img/npcs/Erkunidas.png"
+                    alt="Erkunidas, nan paladí de Moradin"
+                    class="zoomable-hero"
+                    data-caption="Erkunidas (Bach), nan paladí devot de Moradin."
+                  >
+                  <div class="hero-hint">Clica per ampliar</div>
+                </div>
+                <h3 class="hero-name">Erkunidas</h3>
+                <div class="hero-player">Bach · Nan paladí de Moradin</div>
+                <div class="hero-role">
+                  Deixeble de la Forja Sagrada, supervivent d’un temple arrasat.
+                </div>
+                <p class="hero-text">
+                  Des de petit ha sentit les gestes de Gundren i els Buscarroques, somiant caminar al
+                  seu costat com a igual. Després de veure com el seu temple i els seus pares eren
+                  destruïts, va jurar convertir-se en un líder espiritual que guiés els nans a través
+                  de la fe i del martell. Jutja en blancs i negres: si et considera digne, et defensarà
+                  amb el cos i l’ànima; si no, és gairebé impossible guanyar-se’l.
+                </p>
+                <div class="hero-tags">
+                  <span class="hero-tag">Devoció a Moradin</span>
+                  <span class="hero-tag">Trauma del temple destruït</span>
+                  <span class="hero-tag">Honor i judicis absoluts</span>
+                </div>
+              </article>
 
-            <!-- PJ 2 -->
-            <article class="hero-card">
-              <div class="hero-avatar">
-                <img
-                  src="img/pcs/personatge2.jpg"
-                  alt="Retrat del personatge 2"
-                  class="zoomable-hero"
-                  data-caption="Nom del Personatge 2, breu descripció."
-                >
-                <div class="hero-hint">Clica per ampliar</div>
-              </div>
-              <h3 class="hero-name">Nom Personatge 2</h3>
-              <div class="hero-role">Raça · Classe/rol</div>
-              <p class="hero-note">
-                Frase curta que el defineixi (honor, venjança, curiositat, fe...).
-              </p>
-              <div class="hero-tags">
-                <span class="hero-tag">Origen: ...</span>
-                <span class="hero-tag">Enllaç amb la mina</span>
-              </div>
-            </article>
+              <!-- EBAR -->
+              <article class="hero-card">
+                <div class="hero-badge">PJ</div>
+                <div class="hero-avatar">
+                  <img
+                    src="img/npcs/Ebar.png"
+                    alt="Ebar, mag humà de llinatge dracònic vermell"
+                    class="zoomable-hero"
+                    data-caption="Ebar (Sori), mag humà amb sang de drac vermell."
+                  >
+                  <div class="hero-hint">Clica per ampliar</div>
+                </div>
+                <h3 class="hero-name">Ebar</h3>
+                <div class="hero-player">Sori · Humà mag de llinatge dracònic (vermell)</div>
+                <div class="hero-role">
+                  Noble eclipsat, decidit a demostrar que és més que el “tercer fill”.
+                </div>
+                <p class="hero-text">
+                  Fill d’una família noble, sempre ha vist el títol fugir cap als seus germans grans.
+                  Intel·ligent, disciplinat i orgullós, ha triat marxar per forjar la seva pròpia fama.
+                  El seu poder prové d’un llinatge dracònic vermell, que li atorga control sobre el foc
+                  i una ambició ardent. Vol demostrar que és més capaç que qualsevol membre de la seva
+                  casa… i que el món recordi el seu nom.
+                </p>
+                <div class="hero-tags">
+                  <span class="hero-tag">Noblesa menor</span>
+                  <span class="hero-tag">Sang de drac vermell</span>
+                  <span class="hero-tag">Ambició i foc</span>
+                </div>
+              </article>
 
-            <!-- PJ 3 -->
-            <article class="hero-card">
-              <div class="hero-avatar">
-                <img
-                  src="img/pcs/personatge3.jpg"
-                  alt="Retrat del personatge 3"
-                  class="zoomable-hero"
-                  data-caption="Nom del Personatge 3, breu descripció."
-                >
-                <div class="hero-hint">Clica per ampliar</div>
-              </div>
-              <h3 class="hero-name">Nom Personatge 3</h3>
-              <div class="hero-role">Raça · Classe/rol</div>
-              <p class="hero-note">
-                Potser llaços amb Gundren, amb alguna facció o amb la regió de Midland.
-              </p>
-              <div class="hero-tags">
-                <span class="hero-tag">Contactes: ...</span>
-                <span class="hero-tag">Especialitat: ...</span>
-              </div>
-            </article>
+              <!-- KILIL -->
+              <article class="hero-card">
+                <div class="hero-badge">PJ</div>
+                <div class="hero-avatar">
+                  <img
+                    src="img/npcs/Kilil.png"
+                    alt="Kilil, jove pícar de Lilis"
+                    class="zoomable-hero"
+                    data-caption="Kilil (Oleguer), jove pícar crescut als carrers de Lilis."
+                  >
+                  <div class="hero-hint">Clica per ampliar</div>
+                </div>
+                <h3 class="hero-name">Kilil</h3>
+                <div class="hero-player">Oleguer · Humà jove, pícar</div>
+                <div class="hero-role">
+                  Orfe de Lilis, més ràpid que la gana i amb contactes al mercat negre.
+                </div>
+                <p class="hero-text">
+                  Va créixer a l’orfanat i als carrers de Lilis, aprenent a robar per menjar i a fugir
+                  dels soldats del virrei. Deu la seva vida a Binkali, un altre orfe que el va protegir
+                  i que un dia va desaparèixer sense explicacions. Coneix cada racó brut de la ciutat i
+                  no dubta a ajudar qui l’ha ajudat, encara que això impliqui “redistribuir” una mica de
+                  riquesa. Somia trobar Binkali i descobrir qui li ha volgut mal.
+                </p>
+                <div class="hero-tags">
+                  <span class="hero-tag">Carrers de Lilis</span>
+                  <span class="hero-tag">Binkali com a vincle</span>
+                  <span class="hero-tag">Mercat negre i supervivència</span>
+                </div>
+              </article>
+            </div>
 
-            <!-- PJ 4 -->
-            <article class="hero-card">
-              <div class="hero-avatar">
-                <img
-                  src="img/pcs/personatge4.jpg"
-                  alt="Retrat del personatge 4"
-                  class="zoomable-hero"
-                  data-caption="Nom del Personatge 4, breu descripció."
-                >
-                <div class="hero-hint">Clica per ampliar</div>
-              </div>
-              <h3 class="hero-name">Nom Personatge 4</h3>
-              <div class="hero-role">Raça · Classe/rol</div>
-              <p class="hero-note">
-                El seu paper al grup: líder, veu de la consciència, força bruta, cervell...
-              </p>
-              <div class="hero-tags">
-                <span class="hero-tag">Rasgos: ...</span>
-                <span class="hero-tag">Connexió amb algun NPC</span>
-              </div>
-            </article>
+            <div class="heroes-scroll-hint">
+              Llisca per veure tots els personatges.
+            </div>
           </div>
         </div>
       </section>
